@@ -8,6 +8,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Device Profiles',
+    icon: 'nb-compose',
+    link: '/pages/device'
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
