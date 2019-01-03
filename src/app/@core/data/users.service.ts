@@ -15,6 +15,7 @@ export class UserService {
     lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
     alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
     kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
+    xavier: { name: 'Xavier Lin', picture: 'assets/images/profile.jpg'}
   };
 
   private userArray: any[];

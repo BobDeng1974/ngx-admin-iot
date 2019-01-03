@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 // TODO: 連線mongodb
-mongoose.connect('mongodb://localhost:27017/ngx-admin-iot')
+mongoose.connect('mongodb://localhost:10000/ngx-admin-iot')
   .then(() => {
     console.log('Connected to database!');
   })

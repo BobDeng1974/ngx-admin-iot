@@ -10,12 +10,13 @@ const router = express.Router();
 router.post('/signup', (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
-
+      // console.log('signup', req.body.fullName);
       const user = new User({
+        fullName: req.body.fullName,
         email: req.body.email,
         password: hash
       });
-
+      
       user.save()
         .then(result => {
           res.status(200).json({
@@ -56,13 +57,14 @@ router.post('/login', (req, res, next) => {
 
       const token = jwt.sign({
         email: fetchedUser.email,
+        fullName: fetchedUser.fullName,
         userId: fetchedUser._id
       }, 'secret_this_should_be_longer', {
         expiresIn: '1h'
       })
 
       res.status(200).json({
-        token: token
+        data: token
       });
     })
     .catch(err => {
