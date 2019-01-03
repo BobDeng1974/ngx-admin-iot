@@ -8,9 +8,10 @@ const router = express.Router();
 
 
 router.post('/signup', (req, res, next) => {
+  
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      // console.log('signup', req.body.fullName);
+      console.log('signup', req.body.fullName);
       const user = new User({
         fullName: req.body.fullName,
         email: req.body.email,
@@ -31,7 +32,6 @@ router.post('/signup', (req, res, next) => {
         });
     })
 });
-
 
 router.post('/login', (req, res, next) => {
   let fetchedUser;
@@ -74,5 +74,10 @@ router.post('/login', (req, res, next) => {
     });
 });
 
+router.post('/logout', (req, res, next) => {
+  res.status(200).json({
+    message: 'logout success.'
+  });
+});
 
 module.exports = router;

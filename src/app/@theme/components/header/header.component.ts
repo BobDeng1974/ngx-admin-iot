@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
+import { NbMenuService, NbSidebarService, NbMenuItem } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-header',
@@ -16,7 +17,10 @@ export class HeaderComponent implements OnInit {
 
   user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [
+    { title: 'Profile' },
+    { title: 'Log out', link: '/auth/logout' }
+  ];
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -36,6 +40,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.xavier);
+
+      // this.menuService.onItemClick()
+      //   .pipe(filter(({tag}) => tag === 'my-context-menu'))
+      //   .subscribe((item) => {
+      //     if (item.data.id === 'logout') {
+            
+      //     }
+
+      //   })
   }
 
   toggleSidebar(): boolean {

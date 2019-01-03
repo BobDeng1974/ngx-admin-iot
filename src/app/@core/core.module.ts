@@ -56,6 +56,14 @@ export const NB_CORE_PROVIDERS = [
         register: {
           endpoint: '/auth/signup',
           method: 'post'
+        },
+        logout: {
+          endpoint: '/auth/logout',
+          method: 'post',
+          redirect: {
+            success: '/auth/login',
+            failure: null
+          }
         }
       })
     ],
