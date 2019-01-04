@@ -16,7 +16,7 @@ const routes: Routes = [{
     },
     {
       path: 'device',
-      component: DeviceComponent
+      loadChildren: './device/device.module#DeviceModule'
     },
     {
       path: '',

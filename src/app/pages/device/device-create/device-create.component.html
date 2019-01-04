@@ -1,0 +1,31 @@
+<form (submit)="onAddDevice(deviceForm)" #deviceForm="ngForm">
+  <mat-card>
+    <mat-form-field>
+      <input 
+        matInput
+        name="name" 
+        type="text" 
+        ngModel
+        required
+        minlength="3"
+        #deviceName="ngModel">
+        <mat-error *ngIf="deviceName.invalid">Please Enter Device Name</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <!-- <textarea matInput name="" id="" cols="30" rows="6" [(ngModel)]="enteredValue"></textarea> -->
+      <input 
+        matInput
+        name="macAddress"
+        type="text"
+        ngModel
+        required
+        minlength="10"
+        #deviceMacAddress="ngModel">
+        <mat-error *ngIf="deviceMacAddress.invalid">Please Enter Device MAC Address</mat-error>
+    </mat-form-field>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit">Create</button>
+  </mat-card>
+</form>

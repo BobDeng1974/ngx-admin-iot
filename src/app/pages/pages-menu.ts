@@ -10,7 +10,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Device Profiles',
     icon: 'nb-compose',
-    link: '/pages/device'
+    children: [
+      {
+        title: 'Device Maintain',
+        link: '/pages/device/device-create'
+      }
+    ]
   },
   {
     title: 'FEATURES',

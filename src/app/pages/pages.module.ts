@@ -7,8 +7,10 @@ import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { DeviceModule } from './device/device.module';
 
+
+
 const PAGES_COMPONENTS = [
-  PagesComponent,
+  PagesComponent
 ];
 
 @NgModule({
@@ -17,7 +19,8 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     DashboardModule,
     MiscellaneousModule,
-    DeviceModule
+    DeviceModule,
+    MiscellaneousModule
   ],
   declarations: [
     ...PAGES_COMPONENTS,

@@ -1,0 +1,14 @@
+<mat-accordion multi="true" *ngIf="devices.length > 0">
+  <mat-expansion-panel *ngFor="let device of devices">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ device.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ device.createdBy }} | {{ device.createdDate }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ device.macAddress }}</p>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="devices.length <= 0">No Device Added Yet</p>
