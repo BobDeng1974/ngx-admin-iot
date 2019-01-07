@@ -5,6 +5,7 @@ const express = require('express');
 
 // TODO: 引用Route
 const userRoutes = require('./routes/user');
+const deviceRoutes = require('./routes/device');
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 // TODO: 註冊Route
+app.use('/api/device', deviceRoutes);
 app.use('/api/auth', userRoutes);
-
 
 module.exports = app;

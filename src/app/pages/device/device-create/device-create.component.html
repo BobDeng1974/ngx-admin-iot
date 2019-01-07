@@ -8,6 +8,7 @@
         ngModel
         required
         minlength="3"
+        placeholder="Device Name"
         #deviceName="ngModel">
         <mat-error *ngIf="deviceName.invalid">Please Enter Device Name</mat-error>
     </mat-form-field>
@@ -20,12 +21,13 @@
         ngModel
         required
         minlength="10"
+        placeholder="Device MAC Address"
         #deviceMacAddress="ngModel">
         <mat-error *ngIf="deviceMacAddress.invalid">Please Enter Device MAC Address</mat-error>
     </mat-form-field>
     <button 
       mat-raised-button 
       color="primary" 
-      type="submit">Create</button>
+      type="submit"><mat-icon>playlist_add</mat-icon></button>
   </mat-card>
 </form>

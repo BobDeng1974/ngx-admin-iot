@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Device } from "../device.model";
 import { NgForm } from "@angular/forms";
 import { DevicesService } from "../devices.service";
+import { UserService } from "../../../@core/data/users.service";
 
 @Component({
     selector: 'app-device-create',
@@ -12,13 +13,15 @@ export class DeviceCreateComponent {
     // enteredName = '';
     // enteredMacAddress = '';
 
-    constructor(public devicesService: DevicesService) {   
+    constructor(public devicesService: DevicesService, public userService: UserService) {
     }
 
     onAddDevice(form: NgForm) {
         if (form.invalid) {
             return
         }
+
+        // console.log('aaaaaa',this.userService.getCurrentUser());
 
         const newDevice: Device = {
             name: form.value.name,
@@ -28,5 +31,6 @@ export class DeviceCreateComponent {
         };
 
         this.devicesService.addDevice(newDevice);
+        form.resetForm();
     }
 }

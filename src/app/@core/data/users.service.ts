@@ -18,6 +18,8 @@ export class UserService {
     xavier: { name: 'Xavier Lin', picture: 'assets/images/profile.jpg'}
   };
 
+  private currentUser: any;
+
   private userArray: any[];
 
   constructor() {
@@ -36,4 +38,12 @@ export class UserService {
     counter = (counter + 1) % this.userArray.length;
     return observableOf(this.userArray[counter]);
   }
+
+  // setCurrentUser(user: any): void {
+  //   this.currentUser = user;
+  // }
+
+  // getCurrentUser(): string {
+  //   return this.currentUser;
+  // }
 }
