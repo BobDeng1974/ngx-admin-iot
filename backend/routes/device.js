@@ -4,6 +4,17 @@ const Device = require('./../models/device');
 
 const router = express.Router();
 
+router.post('', (req, res, next) => {
+  const device = new Device({
+    name: req.body.name,
+    macAddress: req.body.macAddress,
+    createdBy: req.body.createdBy,
+    createdDate: req.body.createdDate
+  });
+  console.log('aaaaaaaa', device);
+  res.status(201).json({message: 'Device added successfully.'});
+});
+
 router.get('', (req, res, next) => {
   const devices = [{
     id: '1111',
@@ -24,6 +35,7 @@ router.get('', (req, res, next) => {
       devices: devices
   });
 });
+
 
 
 

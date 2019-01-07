@@ -1,6 +1,6 @@
 <form (submit)="onAddDevice(deviceForm)" #deviceForm="ngForm">
   <mat-card>
-    <mat-form-field>
+    <mat-form-field hintLabel="Should be at least 3 characters long.">
       <input 
         matInput
         name="name" 
@@ -10,7 +10,10 @@
         minlength="3"
         placeholder="Device Name"
         #deviceName="ngModel">
-        <mat-error *ngIf="deviceName.invalid">Please Enter Device Name</mat-error>
+        <mat-hint align="end">{{ deviceName.value?.length }} / 3</mat-hint>
+        <mat-error *ngIf="deviceName.hasError('required')">Please Enter Device Name</mat-error>
+        <mat-error *ngIf="!deviceName.hasError('required')">Has to be at least 3 characters long.</mat-error>
+        
     </mat-form-field>
     <mat-form-field>
       <!-- <textarea matInput name="" id="" cols="30" rows="6" [(ngModel)]="enteredValue"></textarea> -->

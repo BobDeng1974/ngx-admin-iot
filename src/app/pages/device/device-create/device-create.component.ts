@@ -24,12 +24,14 @@ export class DeviceCreateComponent {
         // console.log('aaaaaa',this.userService.getCurrentUser());
 
         const newDevice: Device = {
+            id: null,
             name: form.value.name,
             macAddress: form.value.macAddress,
             createdBy: 'Admin',
             createdDate: Date().toLocaleString()
         };
-
+        
+        console.log('onAddDevice', newDevice);
         this.devicesService.addDevice(newDevice);
         form.resetForm();
     }

@@ -23,10 +23,12 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     constructor(public devicesService: DevicesService) { }
 
     ngOnInit(): void {
-        this.devices = this.devicesService.getDevices();
+
+        // 擷取資料時會觸發資料變動, 執行getDeviceUpdateListerner監聽的事件
+        this.devicesService.getDevices();
 
         // TODO: (4)監聽Subject事件
-        this.devicesSub = this.devicesService.getPostUpdateListener()
+        this.devicesSub = this.devicesService.getDeviceUpdateListener()
             .subscribe((devices: Device[]) => {
                 this.devices = devices;
             });
