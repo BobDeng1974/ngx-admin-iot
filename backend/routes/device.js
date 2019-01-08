@@ -11,29 +11,23 @@ router.post('', (req, res, next) => {
     createdBy: req.body.createdBy,
     createdDate: req.body.createdDate
   });
-  console.log('aaaaaaaa', device);
-  res.status(201).json({message: 'Device added successfully.'});
+  device.save();
+  res.status(201).json({
+    message: 'Device added successfully.'
+  });
 });
 
 router.get('', (req, res, next) => {
-  const devices = [{
-    id: '1111',
-    name: '1111',
-    macAddress: '1111',
-    createdBy: 'Admin',
-    createdDate: Date.now().toLocaleString()
-  }, {
-    id: '2222',
-    name: '2222',
-    macAddress: '2222',
-    createdBy: 'Admin',
-    createdDate: Date.now().toLocaleString()
-  }];
-
-  res.status(200).json({
-      message: 'Devices fetch successfully!',
-      devices: devices
-  });
+  Device.find()
+    .then(results => {
+      
+      // TODO: 使用map解決後端_id對應前端模型需要的id, map可作資料轉換(model --> view model)
+      // 這邊在device service用rxjs - pipe處理
+      res.status(200).json({
+        message: 'Devices fetch successfully!',
+        devices: results
+      });
+    });
 });
 
 

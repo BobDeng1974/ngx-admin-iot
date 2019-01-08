@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+// map可轉換任何元素到新的陣列並儲存
+import { map } from "rxjs/operators";
 
 import { Device } from "./device.model";
 import { HttpClient } from "@angular/common/http";
-import { strictEqual } from "assert";
-import { stringify } from "querystring";
 
 @Injectable({ providedIn: "root" })
 export class DevicesService {
@@ -19,9 +19,21 @@ export class DevicesService {
         //要用...才是真正複製陣列, 否則只是複製位址
         // return [...this.devices];
 
-        this.http.get<{ message: string, devices: Device[] }>('http://localhost:3000/api/device')
-            .subscribe((deviceDate) => {
-                this.devices = deviceDate.devices;
+        this.http
+            .get<{ message: string, devices: any }>('http://localhost:3000/api/device')
+            .pipe(map((deviceDate) => {
+                return deviceDate.devices.map((device) => {
+                    return {
+                        name: device.name,
+                        macAddress: device.macAddress,
+                        createdBy: device.createdBy,
+                        createdDate: device.createdDate,
+                        id: device._id
+                    };
+                });
+            }))
+            .subscribe((transformedDeviceData) => {
+                this.devices = transformedDeviceData;
                 this.devicesUpdated.next([...this.devices]);
             });
     }
