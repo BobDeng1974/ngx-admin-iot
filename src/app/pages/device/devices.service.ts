@@ -53,13 +53,27 @@ export class DevicesService {
         };
 
         // TODO: 傳送POST到API Server新增資料
-        this.http.post<{ message: string }>('http://localhost:3000/api/device', newDevice)
+        this.http
+            .post<{ message: string, deviceId: string }>('http://localhost:3000/api/device', newDevice)
             .subscribe((response) => {
-                console.log(response);
-
+                console.log(response.deviceId);
+                const id = response.deviceId;
+                newDevice.id = id;
                 // TODO: 成功執行callback才更新資料陣列
                 this.devices.push(newDevice);
                 // TODO: (2)發出變更通知, 複製要通知的陣列並傳入（註冊要觀察的變更物件）
+                this.devicesUpdated.next([...this.devices]);
+            });
+    }
+
+    deleteDevice(deviceId: string) {
+        this.http
+            .delete('http://localhost:3000/api/device/' + deviceId)
+            .subscribe(() => {
+                // TODO: 更新清單
+                const deviceListAfterDelete = this.devices.filter(device => device.id !== deviceId);
+                console.log('device list after delete', deviceListAfterDelete);
+                this.devices = deviceListAfterDelete;
                 this.devicesUpdated.next([...this.devices]);
             });
     }

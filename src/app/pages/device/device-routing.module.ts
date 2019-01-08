@@ -10,26 +10,24 @@ const routes: Routes = [{
     path: '',
     component: DeviceComponent,
     children: [{
-        path: 'device-create',
-        component: DeviceCreateComponent
-    }, {
-        path: 'device-header',
-        component: DeviceHeaderComponent
-    }, {
         path: 'device-list',
         component: DeviceListComponent
-    }]
+    },
+    {
+        path: 'device-create',
+        component: DeviceCreateComponent
+    },
+    ]
 }];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
-  })
-export class DeviceRoutingModule {}
+})
+export class DeviceRoutingModule { }
 
 export const routedComponents = [
     DeviceComponent,
     DeviceCreateComponent,
-    DeviceHeaderComponent,
     DeviceListComponent
 ];

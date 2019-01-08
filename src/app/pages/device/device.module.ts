@@ -17,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   declarations: [
-    ...routedComponents
+    ...routedComponents,
+    DeviceHeaderComponent
   ],
   providers: []
 })

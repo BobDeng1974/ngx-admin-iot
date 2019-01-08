@@ -13,7 +13,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Device Maintain',
-        link: '/pages/device/device-create'
+        link: '/pages/device/device-list'
       }
     ]
   },

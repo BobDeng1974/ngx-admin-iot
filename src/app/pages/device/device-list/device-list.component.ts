@@ -30,8 +30,13 @@ export class DeviceListComponent implements OnInit, OnDestroy {
         // TODO: (4)監聽Subject事件
         this.devicesSub = this.devicesService.getDeviceUpdateListener()
             .subscribe((devices: Device[]) => {
+                console.log('Initial state', devices.length);
                 this.devices = devices;
             });
+    }
+
+    onDelete(deviceId: string) {
+        this.devicesService.deleteDevice(deviceId);
     }
 
     ngOnDestroy() {

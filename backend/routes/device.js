@@ -5,16 +5,22 @@ const Device = require('./../models/device');
 const router = express.Router();
 
 router.post('', (req, res, next) => {
+  console.log('post called....');
   const device = new Device({
     name: req.body.name,
     macAddress: req.body.macAddress,
     createdBy: req.body.createdBy,
     createdDate: req.body.createdDate
   });
-  device.save();
-  res.status(201).json({
-    message: 'Device added successfully.'
+  device.save().then((result) => {
+    console.log('id', result.id);
+    console.log('_id', result._id);
+    res.status(201).json({
+      message: 'Device added successfully.',
+      deviceId: result._id
+    });
   });
+  
 });
 
 router.get('', (req, res, next) => {
@@ -28,6 +34,18 @@ router.get('', (req, res, next) => {
         devices: results
       });
     });
+});
+
+router.delete('/:id', (req, res, next) => {
+  console.log(req.params.id);
+
+  Device.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({ message: 'Device deleted.'});
+    });
+
+  
 });
 
 
