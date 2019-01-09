@@ -10,26 +10,22 @@ import { DevicesService } from "../devices.service";
     styleUrls: ['./device-list.component.css']
 })
 export class DeviceListComponent implements OnInit, OnDestroy {
-
-    // devices = [
-    //     { name: 'aaa', macAddress: 'aaa', createBy: 'aaa', updatedAt: 'aaa'},
-    //     { name: 'bbb', macAddress: 'bbb', createBy: 'bbb', updatedAt: 'bbb'},
-    //     { name: 'ccc', macAddress: 'ccc', createBy: 'ccc', updatedAt: 'ccc'}
-    // ];
-
     devices: Device[] = [];
     private devicesSub: Subscription;
+    isLoading = false;
 
     constructor(public devicesService: DevicesService) { }
 
     ngOnInit(): void {
+        this.isLoading = true;
 
-        // 擷取資料時會觸發資料變動, 執行getDeviceUpdateListerner監聽的事件
+        // TODO: 擷取資料時會觸發資料變動, 執行getDeviceUpdateListerner監聽的事件
         this.devicesService.getDevices();
 
         // TODO: (4)監聽Subject事件
         this.devicesSub = this.devicesService.getDeviceUpdateListener()
             .subscribe((devices: Device[]) => {
+                this.isLoading = false;
                 console.log('Initial state', devices.length);
                 this.devices = devices;
             });

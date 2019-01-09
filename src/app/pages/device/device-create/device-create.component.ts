@@ -14,6 +14,7 @@ export class DeviceCreateComponent implements OnInit {
     private mode = 'create';
     private deviceId: string;
     device: Device;
+    isLoading = false;
 
     constructor(public devicesService: DevicesService, public userService: UserService, public route: ActivatedRoute) {
     }
@@ -23,16 +24,17 @@ export class DeviceCreateComponent implements OnInit {
         // paramMap是一個observable, 因此可訂閱用以監測route是否有改變
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('deviceId')) {
-                console.log('Param Map', paramMap.get('deviceId'));
-
                 this.mode = 'edit';
-
                 // TODO: 取得id
                 this.deviceId = paramMap.get('deviceId');
+
+                // TODO:設定Progess Loading
+                this.isLoading = true;
 
                 // TODO: 取得物件資訊
                 this.devicesService.getDevice(this.deviceId)
                     .subscribe((deviceData) => {
+                        this.isLoading = false;
                         this.device = deviceData;
                     });
             } else {
@@ -46,6 +48,8 @@ export class DeviceCreateComponent implements OnInit {
         if (form.invalid) {
             return
         }
+
+        this.isLoading = true;
 
         const newDevice: Device = {
             id: this.deviceId,

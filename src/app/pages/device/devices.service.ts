@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 
 import { Device } from "./device.model";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: "root" })
 export class DevicesService {
@@ -13,7 +14,7 @@ export class DevicesService {
     // TODO: (1)宣告Subject, 會傳入Device陣列
     private devicesUpdated = new Subject<Device[]>();
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
     getDevices() {
         //要用...才是真正複製陣列, 否則只是複製位址
@@ -67,6 +68,9 @@ export class DevicesService {
                 this.devices.push(newDevice);
                 // TODO: (2)發出變更通知, 複製要通知的陣列並傳入（註冊要觀察的變更物件）
                 this.devicesUpdated.next([...this.devices]);
+
+                // TODO:導頁
+                this.router.navigate(["/pages/device/device-list"]);
             });
     }
 
@@ -81,21 +85,18 @@ export class DevicesService {
 
         this.http.put('http://localhost:3000/api/device/' + device.id, updateDevice)
             .subscribe(response => {
-
                 // TODO: 複製陣列
                 const updatedDeviceList = [...this.devices];
-
                 // TODO: 搜尋更新項目的索引
                 const updatedIndex = updatedDeviceList.findIndex(p => p.id === p.id);
-
                 // TODO: 更新該資料項
                 updatedDeviceList[updatedIndex] = updateDevice;
-
                 //TODO: 更新資料陣列
                 this.devices = updatedDeviceList;
-
                 // TODO: 通知更新
                 this.devicesUpdated.next([...this.devices]);
+                // TODO:導頁
+                this.router.navigate(["/pages/device/device-list"]);
             });
     }
 
