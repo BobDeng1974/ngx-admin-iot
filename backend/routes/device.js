@@ -1,10 +1,11 @@
 const express = require('express');
 
 const Device = require('./../models/device');
+const checkAuth = require('./../middleware/check-auth');
 
 const router = express.Router();
 
-router.post('', (req, res, next) => {
+router.post('', checkAuth, (req, res, next) => {
   console.log('post called....');
   const device = new Device({
     name: req.body.name,
@@ -22,7 +23,7 @@ router.post('', (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', checkAuth, (req, res, next) => {
 
   const device = new Device({
     _id: req.body.id,
@@ -85,7 +86,7 @@ router.get('/:id', (req, res, next) => {
     })
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
   console.log(req.params.id);
 
   Device.deleteOne({
@@ -97,8 +98,6 @@ router.delete('/:id', (req, res, next) => {
         message: 'Device deleted.'
       });
     });
-
-
 });
 
 module.exports = router;
