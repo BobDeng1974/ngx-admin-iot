@@ -10,6 +10,7 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatProgressSpinnerModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 @NgModule({
@@ -22,7 +23,8 @@ import {
     MatButtonModule,
     MatExpansionModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   declarations: [
     ...routedComponents,

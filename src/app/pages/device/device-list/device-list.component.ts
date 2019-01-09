@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 
 import { Device } from "../device.model";
 import { DevicesService } from "../devices.service";
+import { PageEvent } from "@angular/material";
 
 @Component({
     selector: 'app-device-list',
@@ -13,6 +14,11 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     devices: Device[] = [];
     private devicesSub: Subscription;
     isLoading = false;
+
+    // TODO: Pagin setting
+    totalDevices = 10;
+    devicesPerPage = 2;
+    pagesSizeOptions = [1, 2, 5, 10];
 
     constructor(public devicesService: DevicesService) { }
 
@@ -29,6 +35,10 @@ export class DeviceListComponent implements OnInit, OnDestroy {
                 console.log('Initial state', devices.length);
                 this.devices = devices;
             });
+    }
+
+    onChangedPage(pageData: PageEvent) {
+
     }
 
     onDelete(deviceId: string) {
