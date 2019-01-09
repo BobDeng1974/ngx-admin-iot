@@ -10,9 +10,10 @@ router.post('', checkAuth, (req, res, next) => {
   const device = new Device({
     name: req.body.name,
     macAddress: req.body.macAddress,
-    createdBy: req.body.createdBy,
-    createdDate: req.body.createdDate
+    createdBy: req.userData.userId,
+    createdDate: Date.now().toLocaleString()
   });
+
   device.save().then((result) => {
     console.log('id', result.id);
     console.log('_id', result._id);
@@ -34,20 +35,27 @@ router.put('/:id', checkAuth, (req, res, next) => {
   });
 
   Device.updateOne({
-    _id: req.params.id
-  }, device)
-  .then(result => {
-    console.log(result);
-    res.status(200).json({ message: 'Update successful.'});
-  });
-
+      _id: req.params.id,
+      createdBy: req.userData.userId
+    }, device)
+    .then(result => {
+      if (result.nModified > 0) {
+        res.status(200).json({
+          message: 'Update successful.'
+        });
+      } else {
+        res.status(401).json({
+          message: 'Not Authorized.'
+        });
+      }
+    });
 });
 
 router.get('', (req, res, next) => {
 
-  console.log('paging params', req.query.pagesize, req.query.page);
+  // console.log('paging params', req.query.pagesize, req.query.page);
 
-  const pageSize = +req.query.pagesize;// 用'+'轉整數
+  const pageSize = +req.query.pagesize; // 用'+'轉整數
   const currentPage = +req.query.page;
   const deviceQuery = Device.find();
   let fetchedDevices;
@@ -60,11 +68,11 @@ router.get('', (req, res, next) => {
   }
 
   deviceQuery
-  .then(result => {
-    fetchedDevices = result;
-    return Device.count();
-  })
-  .then(deviceCount => {
+    .then(result => {
+      fetchedDevices = result;
+      return Device.count();
+    })
+    .then(deviceCount => {
       // TODO: 使用map解決後端_id對應前端模型需要的id, map可作資料轉換(model --> view model)
       // 這邊在device service用rxjs - pipe處理
       res.status(200).json({
@@ -81,22 +89,32 @@ router.get('/:id', (req, res, next) => {
       if (device) {
         res.status(200).json(device);
       } else {
-        res.status(404).json({ message: 'Device not found.'});
+        res.status(404).json({
+          message: 'Device not found.'
+        });
       }
     })
 });
 
 router.delete('/:id', checkAuth, (req, res, next) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
 
   Device.deleteOne({
-      _id: req.params.id
+      _id: req.params.id,
+      createdBy: req.userData.userId
     })
     .then((result) => {
       console.log(result);
-      res.status(200).json({
-        message: 'Device deleted.'
-      });
+
+      if (result.n > 0) {
+        res.status(200).json({
+          message: 'Device deleted.'
+        });
+      } else {
+        res.status(401).json({
+          message: 'Not Authorized.'
+        });
+      }
     });
 });
 

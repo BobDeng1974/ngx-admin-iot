@@ -12,11 +12,12 @@ const deviceSchema = mongoose.Schema({
     unique: true
   },
   createdBy: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   createdDate: {
     type: String,
+    ref: "User",
     required: true
   }
 });
