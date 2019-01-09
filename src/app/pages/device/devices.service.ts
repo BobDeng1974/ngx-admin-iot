@@ -43,6 +43,11 @@ export class DevicesService {
         return this.devicesUpdated.asObservable();
     }
 
+    getDevice(deviceId: string) {
+        console.log('Get Device', { ...this.devices.find(d => d.id === deviceId) });
+        return { ...this.devices.find(d => d.id === deviceId) };
+    }
+
     addDevice(device: Device) {
         const newDevice: Device = {
             id: device.id,
@@ -64,6 +69,19 @@ export class DevicesService {
                 // TODO: (2)發出變更通知, 複製要通知的陣列並傳入（註冊要觀察的變更物件）
                 this.devicesUpdated.next([...this.devices]);
             });
+    }
+
+    updateDevice(device: Device) {
+        const updateDevice: Device = {
+            id: device.id,
+            name: device.name,
+            macAddress: device.macAddress,
+            createdBy: device.createdBy,
+            createdDate: device.createdDate
+        };
+
+        this.http.put('http://localhost:3000/api/device/' + device.id, updateDevice)
+            .subscribe(response => console.log(response));
     }
 
     deleteDevice(deviceId: string) {

@@ -20,13 +20,32 @@ router.post('', (req, res, next) => {
       deviceId: result._id
     });
   });
-  
+});
+
+router.put('/:id', (req, res, next) => {
+
+  console.log('update!!!!!!!!!');
+  const device = new Device({
+    _id: req.body.id,
+    name: req.body.name,
+    macAddress: req.body.macAddress,
+    createdBy: 'Admin',
+    createdDate: Date.now().toLocaleString()
+  });
+console.log('backend update', device);
+  Device.updateOne({
+    _id: req.params.id
+  }, device)
+  .then(result => {
+    console.log(result);
+    res.status(200).json({ message: 'Update successful.'});
+  });
 });
 
 router.get('', (req, res, next) => {
   Device.find()
     .then(results => {
-      
+
       // TODO: 使用map解決後端_id對應前端模型需要的id, map可作資料轉換(model --> view model)
       // 這邊在device service用rxjs - pipe處理
       res.status(200).json({
@@ -39,13 +58,17 @@ router.get('', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   console.log(req.params.id);
 
-  Device.deleteOne({ _id: req.params.id })
+  Device.deleteOne({
+      _id: req.params.id
+    })
     .then((result) => {
       console.log(result);
-      res.status(200).json({ message: 'Device deleted.'});
+      res.status(200).json({
+        message: 'Device deleted.'
+      });
     });
 
-  
+
 });
 
 

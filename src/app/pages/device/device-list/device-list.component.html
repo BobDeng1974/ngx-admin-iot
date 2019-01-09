@@ -11,9 +11,9 @@
     <p>{{ device.id }}</p>
     <p>{{ device.macAddress }}</p>
     <mat-action-row>
-      <button mat-icon-button color="primary">
+      <a mat-icon-button color="primary" [routerLink]="['/pages/device/device-edit', device.id]">
         <mat-icon>edit</mat-icon>
-      </button>
+      </a>
       <button mat-icon-button color="accent" (click)="onDelete(device.id)">
         <mat-icon>delete</mat-icon>
       </button>

@@ -17,6 +17,10 @@ const routes: Routes = [{
         path: 'device-create',
         component: DeviceCreateComponent
     },
+    {
+        path: 'device-edit/:deviceId',
+        component: DeviceCreateComponent
+    },
     ]
 }];
 

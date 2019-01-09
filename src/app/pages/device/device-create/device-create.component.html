@@ -1,11 +1,11 @@
-<form (submit)="onAddDevice(deviceForm)" #deviceForm="ngForm">
+<form (submit)="onSaveDevice(deviceForm)" #deviceForm="ngForm">
   <mat-card>
     <mat-form-field hintLabel="Should be at least 3 characters long.">
       <input 
         matInput
         name="name" 
         type="text" 
-        ngModel
+        [ngModel]="device?.name"
         required
         minlength="3"
         placeholder="Device Name"
@@ -21,7 +21,7 @@
         matInput
         name="macAddress"
         type="text"
-        ngModel
+        [ngModel]="device?.macAddress"
         required
         minlength="10"
         placeholder="Device MAC Address"
