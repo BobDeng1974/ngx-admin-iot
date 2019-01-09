@@ -31,7 +31,10 @@ export class DeviceCreateComponent implements OnInit {
                 this.deviceId = paramMap.get('deviceId');
 
                 // TODO: 取得物件資訊
-                this.device = this.devicesService.getDevice(this.deviceId);
+                this.devicesService.getDevice(this.deviceId)
+                    .subscribe((deviceData) => {
+                        this.device = deviceData;
+                    });
             } else {
                 this.mode = 'create';
                 this.deviceId = null;
@@ -43,16 +46,14 @@ export class DeviceCreateComponent implements OnInit {
         if (form.invalid) {
             return
         }
-        console.log('device id', this.deviceId);
+
         const newDevice: Device = {
             id: this.deviceId,
             name: form.value.name,
             macAddress: form.value.macAddress,
             createdBy: 'Admin',
             createdDate: Date.now().toLocaleString()
-        }; 
-
-        console.log('onAddDevice', newDevice, this.mode);
+        };
 
         if (this.mode === 'create') {
             console.log('create');

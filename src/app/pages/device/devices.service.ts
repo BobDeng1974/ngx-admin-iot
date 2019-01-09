@@ -44,8 +44,7 @@ export class DevicesService {
     }
 
     getDevice(deviceId: string) {
-        console.log('Get Device', { ...this.devices.find(d => d.id === deviceId) });
-        return { ...this.devices.find(d => d.id === deviceId) };
+        return this.http.get<Device>('http://localhost:3000/api/device/' + deviceId);
     }
 
     addDevice(device: Device) {
@@ -81,7 +80,23 @@ export class DevicesService {
         };
 
         this.http.put('http://localhost:3000/api/device/' + device.id, updateDevice)
-            .subscribe(response => console.log(response));
+            .subscribe(response => {
+
+                // TODO: 複製陣列
+                const updatedDeviceList = [...this.devices];
+
+                // TODO: 搜尋更新項目的索引
+                const updatedIndex = updatedDeviceList.findIndex(p => p.id === p.id);
+
+                // TODO: 更新該資料項
+                updatedDeviceList[updatedIndex] = updateDevice;
+
+                //TODO: 更新資料陣列
+                this.devices = updatedDeviceList;
+
+                // TODO: 通知更新
+                this.devicesUpdated.next([...this.devices]);
+            });
     }
 
     deleteDevice(deviceId: string) {

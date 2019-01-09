@@ -24,7 +24,6 @@ router.post('', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
 
-  console.log('update!!!!!!!!!');
   const device = new Device({
     _id: req.body.id,
     name: req.body.name,
@@ -32,7 +31,7 @@ router.put('/:id', (req, res, next) => {
     createdBy: 'Admin',
     createdDate: Date.now().toLocaleString()
   });
-console.log('backend update', device);
+
   Device.updateOne({
     _id: req.params.id
   }, device)
@@ -40,6 +39,7 @@ console.log('backend update', device);
     console.log(result);
     res.status(200).json({ message: 'Update successful.'});
   });
+
 });
 
 router.get('', (req, res, next) => {
@@ -53,6 +53,17 @@ router.get('', (req, res, next) => {
         devices: results
       });
     });
+});
+
+router.get('/:id', (req, res, next) => {
+  Device.findById(req.params.id)
+    .then(device => {
+      if (device) {
+        res.status(200).json(device);
+      } else {
+        res.status(404).json({ message: 'Device not found.'});
+      }
+    })
 });
 
 router.delete('/:id', (req, res, next) => {
