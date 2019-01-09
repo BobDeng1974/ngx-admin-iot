@@ -25,5 +25,6 @@
   [length]="totalDevices" 
   [pageSize]="devicesPerPage"
   [pageSizeOptions]="pagesSizeOptions"
-  (page)="onChangedPage($event)"></mat-paginator>
+  (page)="onChangedPage($event)"
+  *ngIf="devices.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="devices.length <= 0 && !isLoading">No Device Added Yet</p>

@@ -16,8 +16,9 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     isLoading = false;
 
     // TODO: Pagin setting
-    totalDevices = 10;
-    devicesPerPage = 2;
+    totalDevices = 0;
+    devicesPerPage = 1;
+    currentPage = 1;
     pagesSizeOptions = [1, 2, 5, 10];
 
     constructor(public devicesService: DevicesService) { }
@@ -26,23 +27,30 @@ export class DeviceListComponent implements OnInit, OnDestroy {
         this.isLoading = true;
 
         // TODO: 擷取資料時會觸發資料變動, 執行getDeviceUpdateListerner監聽的事件
-        this.devicesService.getDevices();
+        this.devicesService.getDevices(this.devicesPerPage, this.currentPage);
 
         // TODO: (4)監聽Subject事件
         this.devicesSub = this.devicesService.getDeviceUpdateListener()
-            .subscribe((devices: Device[]) => {
+            .subscribe((deviceData: { devices: Device[], deviceCount: number }) => {
                 this.isLoading = false;
-                console.log('Initial state', devices.length);
-                this.devices = devices;
+                this.totalDevices = deviceData.deviceCount;
+                this.devices = deviceData.devices;
             });
     }
 
     onChangedPage(pageData: PageEvent) {
-
+        this.isLoading = true;
+        this.currentPage = pageData.pageIndex + 1;
+        this.devicesPerPage = pageData.pageSize;
+        this.devicesService.getDevices(this.devicesPerPage, this.currentPage);
     }
 
     onDelete(deviceId: string) {
-        this.devicesService.deleteDevice(deviceId);
+        this.devicesService.deleteDevice(deviceId)
+            .subscribe(() => {
+                this.isLoading = true;
+                this.devicesService.getDevices(this.devicesPerPage, this.currentPage);
+            });
     }
 
     ngOnDestroy() {

@@ -43,14 +43,33 @@ router.put('/:id', (req, res, next) => {
 });
 
 router.get('', (req, res, next) => {
-  Device.find()
-    .then(results => {
 
+  console.log('paging params', req.query.pagesize, req.query.page);
+
+  const pageSize = +req.query.pagesize;// 用'+'轉整數
+  const currentPage = +req.query.page;
+  const deviceQuery = Device.find();
+  let fetchedDevices;
+
+  // TODO: Pagin Query
+  if (pageSize && currentPage) {
+    deviceQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+
+  deviceQuery
+  .then(result => {
+    fetchedDevices = result;
+    return Device.count();
+  })
+  .then(deviceCount => {
       // TODO: 使用map解決後端_id對應前端模型需要的id, map可作資料轉換(model --> view model)
       // 這邊在device service用rxjs - pipe處理
       res.status(200).json({
         message: 'Devices fetch successfully!',
-        devices: results
+        devices: fetchedDevices,
+        maxDevices: deviceCount
       });
     });
 });
@@ -81,17 +100,5 @@ router.delete('/:id', (req, res, next) => {
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

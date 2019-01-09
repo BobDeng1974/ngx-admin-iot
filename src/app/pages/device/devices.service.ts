@@ -12,30 +12,40 @@ export class DevicesService {
     private devices: Device[] = [];
 
     // TODO: (1)宣告Subject, 會傳入Device陣列
-    private devicesUpdated = new Subject<Device[]>();
+    private devicesUpdated = new Subject<{ devices: Device[], deviceCount: number }>();
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    getDevices() {
+    getDevices(devicesPerPage: number, currentPage: number) {
+
+        // console.log('get device paging', devicesPerPage, currentPage);
+
         //要用...才是真正複製陣列, 否則只是複製位址
         // return [...this.devices];
-
+        const queryParams = `?pagesize=${devicesPerPage}&page=${currentPage}`;
         this.http
-            .get<{ message: string, devices: any }>('http://localhost:3000/api/device')
+            .get<{ message: string, devices: any, maxDevices: number }>('http://localhost:3000/api/device' + queryParams)
             .pipe(map((deviceDate) => {
-                return deviceDate.devices.map((device) => {
-                    return {
-                        name: device.name,
-                        macAddress: device.macAddress,
-                        createdBy: device.createdBy,
-                        createdDate: device.createdDate,
-                        id: device._id
-                    };
-                });
+                return {
+                    devices: deviceDate.devices.map((device) => {
+                        return {
+                            name: device.name,
+                            macAddress: device.macAddress,
+                            createdBy: device.createdBy,
+                            createdDate: device.createdDate,
+                            id: device._id
+                        };
+                    }),
+                    maxDevices: deviceDate.maxDevices
+                };
             }))
             .subscribe((transformedDeviceData) => {
-                this.devices = transformedDeviceData;
-                this.devicesUpdated.next([...this.devices]);
+                console.log('transformed device data', transformedDeviceData);
+                this.devices = transformedDeviceData.devices;
+                this.devicesUpdated.next({
+                    devices: [...this.devices],
+                    deviceCount: transformedDeviceData.maxDevices
+                });
             });
     }
 
@@ -61,13 +71,13 @@ export class DevicesService {
         this.http
             .post<{ message: string, deviceId: string }>('http://localhost:3000/api/device', newDevice)
             .subscribe((response) => {
-                console.log(response.deviceId);
-                const id = response.deviceId;
-                newDevice.id = id;
-                // TODO: 成功執行callback才更新資料陣列
-                this.devices.push(newDevice);
-                // TODO: (2)發出變更通知, 複製要通知的陣列並傳入（註冊要觀察的變更物件）
-                this.devicesUpdated.next([...this.devices]);
+                // console.log(response.deviceId);
+                // const id = response.deviceId;
+                // newDevice.id = id;
+                // // TODO: 成功執行callback才更新資料陣列
+                // this.devices.push(newDevice);
+                // // TODO: (2)發出變更通知, 複製要通知的陣列並傳入（註冊要觀察的變更物件）
+                // this.devicesUpdated.next([...this.devices]);
 
                 // TODO:導頁
                 this.router.navigate(["/pages/device/device-list"]);
@@ -85,30 +95,31 @@ export class DevicesService {
 
         this.http.put('http://localhost:3000/api/device/' + device.id, updateDevice)
             .subscribe(response => {
-                // TODO: 複製陣列
-                const updatedDeviceList = [...this.devices];
-                // TODO: 搜尋更新項目的索引
-                const updatedIndex = updatedDeviceList.findIndex(p => p.id === p.id);
-                // TODO: 更新該資料項
-                updatedDeviceList[updatedIndex] = updateDevice;
-                //TODO: 更新資料陣列
-                this.devices = updatedDeviceList;
-                // TODO: 通知更新
-                this.devicesUpdated.next([...this.devices]);
+                // // TODO: 複製陣列
+                // const updatedDeviceList = [...this.devices];
+                // // TODO: 搜尋更新項目的索引
+                // const updatedIndex = updatedDeviceList.findIndex(p => p.id === p.id);
+                // // TODO: 更新該資料項
+                // updatedDeviceList[updatedIndex] = updateDevice;
+                // //TODO: 更新資料陣列
+                // this.devices = updatedDeviceList;
+                // // TODO: 通知更新
+                // this.devicesUpdated.next([...this.devices]);
                 // TODO:導頁
                 this.router.navigate(["/pages/device/device-list"]);
             });
     }
 
     deleteDevice(deviceId: string) {
-        this.http
-            .delete('http://localhost:3000/api/device/' + deviceId)
-            .subscribe(() => {
-                // TODO: 更新清單
-                const deviceListAfterDelete = this.devices.filter(device => device.id !== deviceId);
-                console.log('device list after delete', deviceListAfterDelete);
-                this.devices = deviceListAfterDelete;
-                this.devicesUpdated.next([...this.devices]);
-            });
+        // this.http
+        //     .delete('http://localhost:3000/api/device/' + deviceId)
+        //     .subscribe(() => {
+        //         // TODO: 更新清單
+        //         const deviceListAfterDelete = this.devices.filter(device => device.id !== deviceId);
+        //         this.devices = deviceListAfterDelete;
+        //         this.devicesUpdated.next([...this.devices]);
+        //     });
+
+        return this.http.delete('http://localhost:3000/api/device/' + deviceId);
     }
 }
