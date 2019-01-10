@@ -63,7 +63,10 @@ router.post('/login', (req, res, next) => {
       })
 
       res.status(200).json({
-        data: token
+        data: token,
+        userId: fetchedUser._id,
+        fullName: fetchedUser.fullName,
+        email: fetchedUser.email
       });
     })
     .catch(err => {

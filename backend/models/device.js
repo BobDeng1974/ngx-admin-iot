@@ -13,7 +13,7 @@ const deviceSchema = mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true  
   },
   createdDate: {
     type: String,
