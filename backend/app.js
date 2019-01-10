@@ -10,13 +10,24 @@ const deviceRoutes = require('./routes/device');
 const app = express();
 
 // TODO: 連線mongodb
-mongoose.connect('mongodb://localhost:10000/ngx-admin-iot')
+// mongoose.connect('mongodb://localhost:10000/ngx-admin-iot')
+//   .then(() => {
+//     console.log('Connected to database!');
+//   })
+//   .catch((err) => {
+//     console.log('Connection failed', err);
+//   });
+
+mongoose.connect('mongodb+srv://SMGARC1:6GLG3FKKNrE7FZiy@cluster0-3aj6h.azure.mongodb.net/admin-iot?retryWrites=true')
   .then(() => {
     console.log('Connected to database!');
   })
   .catch((err) => {
     console.log('Connection failed', err);
   });
+
+
+  //mongodb+srv://SMGARC1:<PASSWORD>@cluster0-3aj6h.azure.mongodb.net/test?retryWrites=true
 
 // TODO: 設定bodyparser
 app.use(bodyparser.json());
