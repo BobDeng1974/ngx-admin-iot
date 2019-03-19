@@ -7,6 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+import { environment } from './../../environments/environment';
 
 const socialLinks = [
   {
@@ -48,7 +49,7 @@ export const NB_CORE_PROVIDERS = [
           class: NbAuthJWTToken,
           key: 'data'
         },
-        baseEndpoint: 'http://localhost:3000/api',
+        baseEndpoint: environment.apiUrl,
         login: {
           endpoint: '/auth/login',
           method: 'post'

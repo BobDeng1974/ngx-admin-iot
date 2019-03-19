@@ -3,9 +3,13 @@ import { Subject } from "rxjs";
 // map可轉換任何元素到新的陣列並儲存
 import { map } from "rxjs/operators";
 
-import { Device } from "./device.model";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+
+import { environment } from "../../../environments/environment";
+import { Device } from "./device.model";
+
+const BACKEND_URL = environment.apiUrl + "/device/";
 
 @Injectable({ providedIn: "root" })
 export class DevicesService {
@@ -24,7 +28,7 @@ export class DevicesService {
         // return [...this.devices];
         const queryParams = `?pagesize=${devicesPerPage}&page=${currentPage}`;
         this.http
-            .get<{ message: string, devices: any, maxDevices: number }>('http://localhost:3000/api/device' + queryParams)
+            .get<{ message: string, devices: any, maxDevices: number }>(BACKEND_URL + queryParams) ///
             .pipe(map((deviceDate) => {
                 return {
                     devices: deviceDate.devices.map((device) => {
@@ -55,7 +59,7 @@ export class DevicesService {
     }
 
     getDevice(deviceId: string) {
-        return this.http.get<Device>('http://localhost:3000/api/device/' + deviceId);
+        return this.http.get<Device>(BACKEND_URL + deviceId);
     }
 
     addDevice(device: Device) {
@@ -69,7 +73,7 @@ export class DevicesService {
 
         // TODO: 傳送POST到API Server新增資料
         this.http
-            .post<{ message: string, deviceId: string }>('http://localhost:3000/api/device', newDevice)
+            .post<{ message: string, deviceId: string }>(BACKEND_URL, newDevice) ///
             .subscribe((response) => {
                 // console.log(response.deviceId);
                 // const id = response.deviceId;
@@ -93,7 +97,7 @@ export class DevicesService {
             createdDate: device.createdDate
         };
 
-        this.http.put('http://localhost:3000/api/device/' + device.id, updateDevice)
+        this.http.put(BACKEND_URL + device.id, updateDevice)
             .subscribe(response => {
                 // // TODO: 複製陣列
                 // const updatedDeviceList = [...this.devices];
@@ -120,6 +124,6 @@ export class DevicesService {
         //         this.devicesUpdated.next([...this.devices]);
         //     });
 
-        return this.http.delete('http://localhost:3000/api/device/' + deviceId);
+        return this.http.delete(BACKEND_URL + deviceId);
     }
 }
