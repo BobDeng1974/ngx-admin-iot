@@ -8,11 +8,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Meetingroom Profiles',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'Meetingrooms',
+        link: '/pages/meetingroom/meetingroom-list'
+      }
+    ]
+  },
+  {
     title: 'Device Profiles',
     icon: 'nb-compose',
     children: [
       {
-        title: 'Device Maintain',
+        title: 'Devices',
         link: '/pages/device/device-list'
       }
     ]

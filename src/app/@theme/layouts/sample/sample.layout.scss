@@ -107,7 +107,7 @@
 
     /deep/ nb-menu {
       & > .menu-items {
-        & > .menu-item:first-child {
+        & > .menu-item:nth-child(1) {
           .menu-title {
             &::after {
               content: 'new';

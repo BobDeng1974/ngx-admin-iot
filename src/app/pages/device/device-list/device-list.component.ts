@@ -15,7 +15,7 @@ export class DeviceListComponent implements OnInit, OnDestroy {
     private devicesSub: Subscription;
     isLoading = false;
 
-    // TODO: Pagin setting
+    // TODO: Paging setting
     totalDevices = 0;
     devicesPerPage = 1;
     currentPage = 1;

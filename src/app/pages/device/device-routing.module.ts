@@ -3,7 +3,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { DeviceComponent } from "./device.component";
 import { DeviceCreateComponent } from "./device-create/device-create.component";
-import { DeviceHeaderComponent } from "./device-header/device-header.component";
 import { DeviceListComponent } from "./device-list/device-list.component";
 
 const routes: Routes = [{

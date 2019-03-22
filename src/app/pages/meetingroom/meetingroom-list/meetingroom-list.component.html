@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header style="position: relative">
+    <span class="spacer"></span>
+    <button class="btn btn-outline-success btn-icon" routerLink="/pages/meetingroom/meetingroom-create">
+      <i class="nb-plus-circled"></i>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (userRowSelect)="onCustomAction($event)">
+    </ng2-smart-table>
+    <br />
+  </nb-card-body>
+</nb-card>

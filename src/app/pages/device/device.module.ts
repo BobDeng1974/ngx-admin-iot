@@ -15,8 +15,9 @@ import {
 
 @NgModule({
   imports: [
-    DeviceRoutingModule,
     ThemeModule,
+    
+    DeviceRoutingModule,
     MatToolbarModule,
     MatInputModule,
     MatCardModule,

@@ -6,6 +6,7 @@ const express = require('express');
 // TODO: 引用Route
 const userRoutes = require('./routes/user');
 const deviceRoutes = require('./routes/device');
+const meetingroomRoutes = require('./routes/meetingroom');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
   extended: false
 }));
+app.use("/images", express.static(path.join("backend/images")));
 
 // TODO: 設定CORS
 app.use((req, res, next) => {
@@ -46,5 +48,6 @@ app.use((req, res, next) => {
 // TODO: 註冊Route
 app.use('/api/device', deviceRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/meetingroom', meetingroomRoutes)
 
 module.exports = app;

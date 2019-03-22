@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NbAuthComponent } from '@nebular/auth';
 import { DeviceComponent } from './device/device.component';
 
+
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -14,6 +15,11 @@ const routes: Routes = [{
       path: 'dashboard',
       component: DashboardComponent,
     },
+    {
+      path: 'meetingroom',
+      loadChildren: './meetingroom/meetingroom.module#MeetingroomModule'
+    }
+    ,
     {
       path: 'device',
       loadChildren: './device/device.module#DeviceModule'

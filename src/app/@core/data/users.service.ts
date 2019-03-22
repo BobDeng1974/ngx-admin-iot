@@ -23,7 +23,7 @@ export class UserService {
   private userArray: any[];
 
   constructor() {
-    // this.userArray = Object.values(this.users);
+    this.userArray = Object.values(this.users);
   }
 
   getUsers(): Observable<any> {
@@ -35,15 +35,17 @@ export class UserService {
   }
 
   getUser(): Observable<any> {
+    console.log('gggggggggggget');
     counter = (counter + 1) % this.userArray.length;
     return observableOf(this.userArray[counter]);
   }
 
-  // setCurrentUser(user: any): void {
-  //   this.currentUser = user;
-  // }
+  setCurrentUser(user: any): void {
+    console.log('++++++++++++++', user);
+    this.currentUser = user;
+  }
 
-  // getCurrentUser(): string {
-  //   return this.currentUser;
-  // }
+  getCurrentUser(): any {
+    return this.currentUser;
+  }
 }
