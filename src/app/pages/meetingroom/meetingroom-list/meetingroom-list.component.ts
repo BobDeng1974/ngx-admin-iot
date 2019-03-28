@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 import { Meetingroom } from '../meetingroom.model';
 import { MeetingroomsService } from '../meetingroom.service';
 import { PageEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, ServerDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'app-meetingroom-list',
@@ -29,18 +30,12 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
         actions: {
             add: false,
             edit: false,
-            delete: true,
-            custom: [
-                {
-                    name: 'ourCustomAction',
-                },
-            ],
-            
+            delete: true
         },
         noDataMessage: 'No Meetingroom Added Yet',
         pager: {  
             display: true,  
-            perPage: 3  
+            perPage: 1
         },
         delete: {
             deleteButtonContent: '<i class="nb-trash"></i>',
@@ -70,22 +65,23 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
             }
         }
     };
+    
+    serverDataSource: ServerDataSource;
 
-    source: LocalDataSource = new LocalDataSource();
+    constructor(private http: HttpClient, public meetingroomsService: MeetingroomsService, public router: Router) { 
 
-    constructor(public meetingroomsService: MeetingroomsService, public router: Router) { }
+    }
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.meetingroomsService.getMeetingrooms(this.meetingroomsPerPage, this.currentPage);
-        this.meetingroomSub = this.meetingroomsService
-            .getMeetingroomUpdateListener()
-            .subscribe((meetingroomData: { meetingrooms: Meetingroom[], meetingroomCount: number }) => {
-                this.isLoading = false;
-                this.totalMeetingrooms = meetingroomData.meetingroomCount;
-                this.meetingrooms = meetingroomData.meetingrooms;
-                this.source.load(this.meetingrooms);
-            });
+        
+        this.serverDataSource = this.meetingroomsService.getMeetingrooms2();
+        
+        // console.log(`取得當前Table資訊 ${this.serverDataSource.getPaging()}`)
+        // this.serverDataSource.onChanged().subscribe(data => {
+        //     console.log(`Table資料來源已改變`)
+        //     console.log(data)
+        // });
     }
 
     onChangedPage(pageData: PageEvent) {
@@ -97,19 +93,21 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // TODO: (5)離開該Component時, 移除Subscription, 否則會memory leak
-        this.meetingroomSub.unsubscribe();
+        //this.meetingroomSub.unsubscribe();
     }
 
     onDeleteConfirm(event): void {
+        console.log('deleteeeeeeeeeeee', event.data);
         if (window.confirm('Are you sure you want to delete?')) {
+            
             event.confirm.resolve();
         } else {
             event.confirm.reject();
         }
     }
 
-    onCustomAction(event) {
-        // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-        this.router.navigate(['/pages/meetingroom/meetingroom-edit', event.data.id]);
+    onUserRowSelect(event): void {
+        //console.log('RowSelectttttt', event.data);
+        this.router.navigate(['/pages/meetingroom/meetingroom-edit', event.data._id]);
     }
 }

@@ -9,16 +9,20 @@ import { environment } from '../../../environments/environment';
 import { Meetingroom } from './meetingroom.model';
 import { UserService } from '../../@core/data/users.service';
 
-const BACKEND_URL = environment.apiUrl + "/meetingroom/";
+import { ServerDataSource } from 'ng2-smart-table';
+
+const BACKEND_URL = environment.apiUrl + "/meetingroom";
 
 @Injectable({ providedIn: "root"})
 export class MeetingroomsService {
     private meetingrooms: Meetingroom[] = [];
+    private aaa: ServerDataSource;
 
     // TODO: (1)宣告Subject, 會傳入Meetingroom陣列
     private meetingroomsUpdated = new Subject<{ meetingrooms: Meetingroom[], meetingroomCount: number }>();
 
-    constructor(private http: HttpClient, private router: Router, private userService: UserService) {}
+    constructor(protected http: HttpClient, private router: Router, private userService: UserService) {
+    }
 
     getMeetingrooms(meetingroomsPerPage: number, currentPage: number) {
         console.log('get meetingrooms paging', meetingroomsPerPage, currentPage);
@@ -49,6 +53,22 @@ export class MeetingroomsService {
                     meetingroomCount: transformedMeetingroomData.maxMeetingrooms
                 });
             });
+    }
+
+    getMeetingrooms2(): ServerDataSource{
+        
+        this.aaa = new ServerDataSource(this.http, {
+            endPoint: BACKEND_URL + '?_start=1',
+            dataKey: 'meetingrooms',
+            totalKey: 'maxMeetingrooms',
+            pagerLimitKey:"_limit",
+            pagerPageKey:"_page",
+        });
+        //this.aaa.setPaging(1,1, false);
+
+        //this.aaa = new ServerDataSource(this.http, { endPoint: 'https://jsonplaceholder.typicode.com/photos?_start=1&_limit=10' });
+
+        return this.aaa;
     }
 
     getMeetingroomUpdateListener() {

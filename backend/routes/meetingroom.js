@@ -8,8 +8,6 @@ const router = express.Router();
 
 router.post('', checkAuth, extractFile, MeetingroomController.createMeetingroom);
 
-router.get('', MeetingroomController.getAllMeetingrooms);
-
-
+router.get('', checkAuth, MeetingroomController.getAllMeetingrooms);
 
 module.exports = router;

@@ -1,11 +1,6 @@
 const Meetingroom = require('./../models/meetingroom');
 
 exports.createMeetingroom = (req, res, next) => {
-
-  console.log(req.file);
-
-
-
   const url = req.protocol + "://" + req.get('host');
   const meetingroom = new Meetingroom({
     name: req.body.name,
@@ -34,9 +29,14 @@ exports.createMeetingroom = (req, res, next) => {
 };
 
 exports.getAllMeetingrooms = (req, res, next) => {
-  // console.log('paging params', req.query.pagesize, req.query.page);
-  const pageSize = +req.query.pagesize; // 用'+'轉整數
-  const currentPage = +req.query.page;
+  console.log('_start', req.query._start);
+  console.log('_limit', req.query._limit);
+  console.log('_page', req.query._page);
+  // const pageSize = +req.query.pagesize; // 用'+'轉整數
+  // const currentPage = +req.query.page;
+  const pageSize = +req.query._limit; // 用'+'轉整數
+  //const pageSize = 1; // 用'+'轉整數
+  const currentPage = +req.query._page;
   const meetingroomQuery = Meetingroom.find();
   let fetchedMeetingrooms;
 
@@ -46,7 +46,12 @@ exports.getAllMeetingrooms = (req, res, next) => {
   //     .skip(pageSize * (currentPage - 1))
   //     .limit(pageSize);
   // }
-
+  if (pageSize && currentPage) {
+    meetingroomQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  
   meetingroomQuery
     .then(result => {
         fetchedMeetingrooms = result;

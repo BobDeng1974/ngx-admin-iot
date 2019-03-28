@@ -6,8 +6,18 @@
     </button>
   </nb-card-header>
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (userRowSelect)="onCustomAction($event)">
+    <ng2-smart-table 
+    [settings]="settings" 
+    [source]="serverDataSource"
+    (deleteConfirm)="onDeleteConfirm($event)"
+    (userRowSelect)="onUserRowSelect($event)"
+    >
     </ng2-smart-table>
+    
+    <!-- <mat-paginator
+    class="ng2-smart-pagination-nav"
+     [length]="totalMeetingrooms" [pageSize]="meetingroomsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+  *ngIf="meetingrooms.length > 0"></mat-paginator> -->
     <br />
   </nb-card-body>
 </nb-card>
