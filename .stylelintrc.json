@@ -15,7 +15,7 @@
     "length-zero-no-unit": true,
 
     "string-no-newline": true,
-    "string-quotes": "single",
+    
 
     "unit-case": "lower",
     "unit-no-unknown": true,
@@ -32,7 +32,6 @@
       "ignore": ["consecutive-duplicates-with-different-values"]
     }],
     "declaration-block-trailing-semicolon": "always",
-    "declaration-block-single-line-max-declarations": 1,
     "declaration-block-semicolon-space-before": "never",
     "declaration-block-semicolon-space-after": "always-single-line",
     "declaration-block-semicolon-newline-before": "never-multi-line",
