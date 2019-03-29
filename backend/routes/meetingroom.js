@@ -14,4 +14,6 @@ router.get('', checkAuth, MeetingroomController.getAllMeetingrooms);
 
 router.get('/:id', MeetingroomController.getMeetingroomById);
 
+router.delete("/:id", checkAuth, MeetingroomController.deleteMeetingroom);
+
 module.exports = router;

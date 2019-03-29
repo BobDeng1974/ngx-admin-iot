@@ -43,11 +43,9 @@ export class MeetingroomCreateComponent implements OnInit {
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('meetingroomId')) {
                 this.panelTitle = 'Edit Meetingroom';
-                console.log('edittttttttttttttttttttttttt');
                 this.mode = 'edit';
                 // TODO: 取得id
                 this.meetingroomId = paramMap.get('meetingroomId');
-                console.log('meetingroomId', this.meetingroomId);
                 // TODO:設定Progess Loading
                 this.isLoading = true;
 
@@ -70,8 +68,6 @@ export class MeetingroomCreateComponent implements OnInit {
 
                         this.imageName = this.meetingroom.imagePath.split('/').pop().replace(/\.[^/.]+$/, '');
                         this.imagePreview = this.meetingroom.imagePath;
-
-                        
                     });
             } else {
                 this.panelTitle = 'Create Meetingroom';
@@ -104,8 +100,6 @@ export class MeetingroomCreateComponent implements OnInit {
                 this.form.value.image,
             );
         } else {
-            // console.log('update');
-            console.log('image object', this.form.value.image.name);
             this.meetingroomsService.updateMeetingrooms(
                 this.meetingroomId,
                 this.form.value.meetingroomName,

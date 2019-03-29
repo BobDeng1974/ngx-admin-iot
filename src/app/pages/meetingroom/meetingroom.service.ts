@@ -9,7 +9,6 @@ import { environment } from '../../../environments/environment';
 import { Meetingroom } from './meetingroom.model';
 
 import { ServerDataSource } from 'ng2-smart-table';
-import { stringify } from '@angular/core/src/util';
 
 const BACKEND_URL = environment.apiUrl + '/meetingroom/';
 
@@ -60,9 +59,14 @@ export class MeetingroomsService {
             endPoint: BACKEND_URL + '?_start=1',
             dataKey: 'meetingrooms',
             totalKey: 'maxMeetingrooms',
-            pagerLimitKey: '_limit',
-            pagerPageKey: '_page',
+            pagerLimitKey: "_limit",
+            pagerPageKey: "_page",
+            sortDirKey: "_order",
+            sortFieldKey: "_sort",
         });
+
+        // this.serverDataSource.setSort([{ field: 'createdDate', direction: 'asc' }], false);
+
         return this.serverDataSource;
     }
 
@@ -120,12 +124,14 @@ export class MeetingroomsService {
                 createdDate: null,
             };
         }
-        console.log('meetingroom data', meetingroomData);
-        console.log('Path', BACKEND_URL + id);
         this.http
         .put(BACKEND_URL + id, meetingroomData)
         .subscribe(response => {
-            this.router.navigate(["/"]);
+            this.router.navigate(['/pages/meetingroom/meetingroom-list']);
         });
     }
+
+    deleteMeetingroom(meetingroomId: string) {
+        return this.http.delete(BACKEND_URL + meetingroomId);
+      }
 }

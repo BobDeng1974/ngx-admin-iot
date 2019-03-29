@@ -87,7 +87,7 @@ exports.getMeetingroomById = (req, res, next) => {
 exports.updateMeetingroom = (req, res, next) => {
   let imagePath = req.body.imagePath;
   if (req.file) {
-    console.log('fileeeeeeeeeeeeeeee');
+    // console.log('fileeeeeeeeeeeeeeee');
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/" + req.file.filename;
   }
@@ -112,3 +112,20 @@ exports.updateMeetingroom = (req, res, next) => {
       });
     });
 };
+
+exports.deleteMeetingroom = (req, res, next) => {
+  Meetingroom.deleteOne({ _id: req.params.id, createdBy: req.userData.userId })
+    .then(result => {
+      console.log(result);
+      if (result.n > 0) {
+        res.status(200).json({ message: "Deletion successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Deleting meetingroom failed!"
+      });
+    });
+}

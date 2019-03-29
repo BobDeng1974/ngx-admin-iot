@@ -39,6 +39,10 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
         columns: {
             name: {
                 title: 'Meetingroom',
+                sort: false,
+                editable: false,
+                addable: false,
+                filter: false,
             },
             imagePath: {
                 title: 'Meetingroom Photo',
@@ -46,17 +50,22 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
                 sort: false,
                 editable: false,
                 addable: false,
+                filter: false,
                 valuePrepareFunction: (value) => `<img src= ${value} height='50%' width='50%' />`,
             },
             createdBy: {
                 title: 'Created By',
+                sort: false,
                 editable: false,
                 addable: false,
+                filter: false,
             },
             createdDate: {
                 title: 'Created Date',
+                sort: false,
                 editable: false,
                 addable: false,
+                filter: false,
             },
         },
     };
@@ -87,16 +96,21 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
     }
 
     onDeleteConfirm(event): void {
-        // console.log('deleteeeeeeeeeeee', event.data);
         if (window.confirm('Are you sure you want to delete?')) {
-            event.confirm.resolve();
+
+            this.meetingroomsService.deleteMeetingroom(event.data._id)
+            .subscribe(() => {
+                this.isLoading = true;
+                // this.meetingroomsService.getDevices(this.devicesPerPage, this.currentPage);
+                this.serverDataSource = this.meetingroomsService.getMeetingrooms2();
+                event.confirm.resolve();
+            });
         } else {
             event.confirm.reject();
         }
     }
 
     onUserRowSelect(event): void {
-        // console.log('RowSelectttttt', event.data);
         this.router.navigate(['/pages/meetingroom/meetingroom-edit', event.data._id]);
     }
 }
