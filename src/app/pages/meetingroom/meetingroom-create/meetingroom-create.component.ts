@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
+
 import { Meetingroom } from '../meetingroom.model';
 import { MeetingroomsService } from './../meetingroom.service';
 import { UserService } from '../../../@core/data/users.service';
 
 import { mimeType } from './mime-type.validator';
-
 @Component({
     selector: 'ngx-meetingroom-create',
     templateUrl: './meetingroom-create.component.html',
@@ -16,6 +16,7 @@ import { mimeType } from './mime-type.validator';
 export class MeetingroomCreateComponent implements OnInit {
     private mode = 'create';
     private meetingroomId: string;
+    panelTitle: string;
     meetingroom: Meetingroom;
     isLoading = false;
     form: FormGroup;
@@ -41,10 +42,12 @@ export class MeetingroomCreateComponent implements OnInit {
         // paramMap是一個observable, 因此可訂閱用以監測route是否有改變
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('meetingroomId')) {
+                this.panelTitle = 'Edit Meetingroom';
+                console.log('edittttttttttttttttttttttttt');
                 this.mode = 'edit';
                 // TODO: 取得id
                 this.meetingroomId = paramMap.get('meetingroomId');
-
+                console.log('meetingroomId', this.meetingroomId);
                 // TODO:設定Progess Loading
                 this.isLoading = true;
 
@@ -52,9 +55,26 @@ export class MeetingroomCreateComponent implements OnInit {
                 this.meetingroomsService.getMeetingroom(this.meetingroomId)
                     .subscribe((meetingroomData) => {
                         this.isLoading = false;
-                        this.meetingroom = meetingroomData;
+                        this.meetingroom = {
+                            id: meetingroomData._id,
+                            name: meetingroomData.name,
+                            imagePath: meetingroomData.imagePath,
+                            createdBy: meetingroomData.createdBy,
+                            createdDate: meetingroomData.createdDate,
+                        };
+
+                        this.form.setValue({
+                            meetingroomName: this.meetingroom.name,
+                            image: this.meetingroom.imagePath,
+                        });
+
+                        this.imageName = this.meetingroom.imagePath.split('/').pop().replace(/\.[^/.]+$/, '');
+                        this.imagePreview = this.meetingroom.imagePath;
+
+                        
                     });
             } else {
+                this.panelTitle = 'Create Meetingroom';
                 this.mode = 'create';
                 this.meetingroomId = null;
             }
@@ -77,17 +97,19 @@ export class MeetingroomCreateComponent implements OnInit {
         if (this.form.invalid) {
             return;
         }
-
         this.isLoading = true;
         if (this.mode === 'create') {
-            // console.log('create');
             this.meetingroomsService.addMeetingroom(
                 this.form.value.meetingroomName,
                 this.form.value.image,
             );
         } else {
             // console.log('update');
-            // this.meetingroomsService.updateDevice(newDevice);
+            console.log('image object', this.form.value.image.name);
+            this.meetingroomsService.updateMeetingrooms(
+                this.meetingroomId,
+                this.form.value.meetingroomName,
+                this.form.value.image);
         }
         this.form.reset();
     }

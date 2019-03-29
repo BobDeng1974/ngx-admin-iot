@@ -68,3 +68,47 @@ exports.getAllMeetingrooms = (req, res, next) => {
       });
     });
 };
+
+exports.getMeetingroomById = (req, res, next) => {
+  console.log('Get By ID');
+  Meetingroom.findById(req.params.id)
+    .then(meetingroom => {
+      if (meetingroom) {
+        console.log(meetingroom);
+        res.status(200).json(meetingroom);
+      } else {
+        res.status(404).json({
+          message: 'Meetingroom not found.'
+        });
+      }
+    })
+};
+
+exports.updateMeetingroom = (req, res, next) => {
+  let imagePath = req.body.imagePath;
+  if (req.file) {
+    console.log('fileeeeeeeeeeeeeeee');
+    const url = req.protocol + "://" + req.get("host");
+    imagePath = url + "/images/" + req.file.filename;
+  }
+  const meetingroom = new Meetingroom({
+    _id: req.body.id,
+    name: req.body.name,
+    imagePath: imagePath,
+    createdBy: req.userData.userId,
+    createdDate: new Date().toLocaleString()
+  });
+  Meetingroom.updateOne({ _id: req.params.id, createdBy: req.userData.userId }, meetingroom)
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "Update successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: error,
+      });
+    });
+};

@@ -9,8 +9,9 @@ import { environment } from '../../../environments/environment';
 import { Meetingroom } from './meetingroom.model';
 
 import { ServerDataSource } from 'ng2-smart-table';
+import { stringify } from '@angular/core/src/util';
 
-const BACKEND_URL = environment.apiUrl + '/meetingroom';
+const BACKEND_URL = environment.apiUrl + '/meetingroom/';
 
 @Injectable({ providedIn: 'root'})
 export class MeetingroomsService {
@@ -69,8 +70,14 @@ export class MeetingroomsService {
         return this.meetingroomsUpdated.asObservable();
     }
 
-    getMeetingroom(meetingroomId: string) {
-        return this.http.get<Meetingroom>(BACKEND_URL + meetingroomId);
+    getMeetingroom(id: string) {
+        return this.http.get<{
+            _id: string;
+            name: string;
+            imagePath: string;
+            createdBy: string;
+            createdDate: string;
+        }>(BACKEND_URL + id);
     }
 
     addMeetingroom(name: string, image: File) {
@@ -95,5 +102,30 @@ export class MeetingroomsService {
 
                 this.router.navigate(['/pages/meetingroom/meetingroom-list']);
             });
+    }
+
+    updateMeetingrooms(id: string, name: string, image: File | string) {
+        let meetingroomData: Meetingroom | FormData;
+        if (typeof image === 'object') {
+            meetingroomData = new FormData();
+            meetingroomData.append('id', id);
+            meetingroomData.append('name', name);
+            meetingroomData.append('image', image, name);
+        } else {
+            meetingroomData = {
+                id: id,
+                name: name,
+                imagePath: image,
+                createdBy: null,
+                createdDate: null,
+            };
+        }
+        console.log('meetingroom data', meetingroomData);
+        console.log('Path', BACKEND_URL + id);
+        this.http
+        .put(BACKEND_URL + id, meetingroomData)
+        .subscribe(response => {
+            this.router.navigate(["/"]);
+        });
     }
 }

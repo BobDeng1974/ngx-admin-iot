@@ -1,5 +1,5 @@
 <nb-card>
-  <nb-card-header>Create Meetingroom</nb-card-header>
+  <nb-card-header>{{ panelTitle }}</nb-card-header>
   <nb-card-body>
     <form [formGroup]="form" (submit)="onSaveMeetingroom()" *ngIf="!isLoading">
       <div class="form-group">
@@ -23,7 +23,7 @@
         </span>
       </div>
       <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
-          <img [src]="imagePreview" [alt]="form.value.name" style="height:300px">
+          <img [src]="imagePreview" [alt]="form.value.name" style="height:300px" >
         </div>
       <div class="d-flex flex-row-reverse bd-highlight">
         <button nbButton shape="rectangle" status="success" class="btn-demo" type="submit">SUBMIT</button>
