@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Meetingroom } from '../meetingroom.model';
-import { MeetingroomsService } from './../meetingroom.service'; 
+import { MeetingroomsService } from './../meetingroom.service';
 import { UserService } from '../../../@core/data/users.service';
 
 import { mimeType } from './mime-type.validator';
 
 @Component({
-    selector: 'app-meetingroom-create',
+    selector: 'ngx-meetingroom-create',
     templateUrl: './meetingroom-create.component.html',
-    styleUrls: ['./meetingroom-create.component.scss']
+    styleUrls: ['./meetingroom-create.component.scss'],
 })
 export class MeetingroomCreateComponent implements OnInit {
     private mode = 'create';
@@ -20,21 +20,21 @@ export class MeetingroomCreateComponent implements OnInit {
     isLoading = false;
     form: FormGroup;
     imagePreview: string;
-    imageName: string = "";
+    imageName: string = '';
 
     constructor(
-        public meetingroomsService: MeetingroomsService, 
+        public meetingroomsService: MeetingroomsService,
         public userService: UserService, public route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.form = new FormGroup({
             meetingroomName: new FormControl(null, {
-                validators: [Validators.required, Validators.minLength(3)]
+                validators: [Validators.required, Validators.minLength(3)],
             }),
             image: new FormControl(null, {
                 validators: [Validators.required],
-                asyncValidators: [mimeType]
-            })
+                asyncValidators: [mimeType],
+            }),
         });
 
         // TODO: 檢查route中是否有參數
@@ -64,30 +64,30 @@ export class MeetingroomCreateComponent implements OnInit {
     onImagePicked(event: Event) {
         const file = (event.target as HTMLInputElement).files[0];
         this.form.patchValue({ image: file });
-        this.form.get("image").updateValueAndValidity();
+        this.form.get('image').updateValueAndValidity();
         const reader = new FileReader();
         reader.onload = () => {
             this.imagePreview = reader.result as string;
-        }
+        };
         reader.readAsDataURL(file);
-        this.imageName = this.form.value.image.name.replace(/\.[^/.]+$/, "");
+        this.imageName = this.form.value.image.name.replace(/\.[^/.]+$/, '');
     }
 
     onSaveMeetingroom() {
         if (this.form.invalid) {
-            return
+            return;
         }
 
         this.isLoading = true;
         if (this.mode === 'create') {
-            console.log('create');
+            // console.log('create');
             this.meetingroomsService.addMeetingroom(
                 this.form.value.meetingroomName,
-                this.form.value.image
+                this.form.value.image,
             );
         } else {
-            console.log('update');
-            //this.meetingroomsService.updateDevice(newDevice);
+            // console.log('update');
+            // this.meetingroomsService.updateDevice(newDevice);
         }
         this.form.reset();
     }

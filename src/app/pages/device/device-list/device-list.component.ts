@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import { Device } from "../device.model";
-import { DevicesService } from "../devices.service";
-import { PageEvent } from "@angular/material";
+import { Device } from '../device.model';
+import { DevicesService } from '../devices.service';
+import { PageEvent } from '@angular/material';
 
 @Component({
-    selector: 'app-device-list',
+    selector: 'ngx-device-list',
     templateUrl: './device-list.component.html',
-    styleUrls: ['./device-list.component.css']
+    styleUrls: ['./device-list.component.css'],
 })
 export class DeviceListComponent implements OnInit, OnDestroy {
     devices: Device[] = [];

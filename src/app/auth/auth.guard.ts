@@ -5,7 +5,7 @@ import { NbAuthService } from '@nebular/auth';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         if (!authenticated) {
           this.router.navigate(['auth/login']);
         } else {
-          console.log('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+          // console.log('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
         }
       }));
   }

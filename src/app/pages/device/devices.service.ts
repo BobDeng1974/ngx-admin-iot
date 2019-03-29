@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 // map可轉換任何元素到新的陣列並儲存
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators';
 
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { environment } from "../../../environments/environment";
-import { Device } from "./device.model";
+import { environment } from '../../../environments/environment';
+import { Device } from './device.model';
 
-const BACKEND_URL = environment.apiUrl + "/device/";
+const BACKEND_URL = environment.apiUrl + '/device/';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class DevicesService {
     private devices: Device[] = [];
 
@@ -24,7 +24,7 @@ export class DevicesService {
 
         // console.log('get device paging', devicesPerPage, currentPage);
 
-        //要用...才是真正複製陣列, 否則只是複製位址
+        // 要用...才是真正複製陣列, 否則只是複製位址
         // return [...this.devices];
         const queryParams = `?pagesize=${devicesPerPage}&page=${currentPage}`;
         this.http
@@ -37,18 +37,18 @@ export class DevicesService {
                             macAddress: device.macAddress,
                             createdBy: device.createdBy,
                             createdDate: device.createdDate,
-                            id: device._id
+                            id: device._id,
                         };
                     }),
-                    maxDevices: deviceDate.maxDevices
+                    maxDevices: deviceDate.maxDevices,
                 };
             }))
             .subscribe((transformedDeviceData) => {
-                console.log('transformed device data', transformedDeviceData);
+                // console.log('transformed device data', transformedDeviceData);
                 this.devices = transformedDeviceData.devices;
                 this.devicesUpdated.next({
                     devices: [...this.devices],
-                    deviceCount: transformedDeviceData.maxDevices
+                    deviceCount: transformedDeviceData.maxDevices,
                 });
             });
     }
@@ -68,7 +68,7 @@ export class DevicesService {
             name: device.name,
             macAddress: device.macAddress,
             createdBy: device.createdBy,
-            createdDate: device.createdDate
+            createdDate: device.createdDate,
         };
 
         // TODO: 傳送POST到API Server新增資料
@@ -84,7 +84,7 @@ export class DevicesService {
                 // this.devicesUpdated.next([...this.devices]);
 
                 // TODO:導頁
-                this.router.navigate(["/pages/device/device-list"]);
+                this.router.navigate(['/pages/device/device-list']);
             });
     }
 
@@ -94,7 +94,7 @@ export class DevicesService {
             name: device.name,
             macAddress: device.macAddress,
             createdBy: device.createdBy,
-            createdDate: device.createdDate
+            createdDate: device.createdDate,
         };
 
         this.http.put(BACKEND_URL + device.id, updateDevice)
@@ -110,7 +110,7 @@ export class DevicesService {
                 // // TODO: 通知更新
                 // this.devicesUpdated.next([...this.devices]);
                 // TODO:導頁
-                this.router.navigate(["/pages/device/device-list"]);
+                this.router.navigate(['/pages/device/device-list']);
             });
     }
 

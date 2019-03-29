@@ -3,7 +3,6 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { MeetingroomRoutingModule, routedComponents } from './meetingroom-routing.module';
 import { MeetingroomHeaderComponent } from './meetingroom-header/meetingroom-header.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
 import {
     MatInputModule,
     MatToolbarModule,
@@ -12,14 +11,12 @@ import {
     MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   } from '@angular/material';
-
 @NgModule({
-    imports: [ 
+    imports: [
         ThemeModule,
-        
-        MeetingroomRoutingModule,        
+        MeetingroomRoutingModule,
         MatButtonModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
@@ -28,12 +25,11 @@ import {
         MatExpansionModule,
         MatIconModule,
         MatPaginatorModule,
-
-        Ng2SmartTableModule
+        Ng2SmartTableModule,
      ],
     declarations: [
         ...routedComponents,
-        MeetingroomHeaderComponent
+        MeetingroomHeaderComponent,
     ],
     providers: [],
 })

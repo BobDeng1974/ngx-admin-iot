@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Device } from "../device.model";
-import { NgForm } from "@angular/forms";
-import { DevicesService } from "../devices.service";
-import { UserService } from "../../../@core/data/users.service";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Device } from '../device.model';
+import { NgForm } from '@angular/forms';
+import { DevicesService } from '../devices.service';
+import { UserService } from '../../../@core/data/users.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-    selector: 'app-device-create',
+    selector: 'ngx-device-create',
     templateUrl: './device-create.component.html',
-    styleUrls: ['./device-create.component.css']
+    styleUrls: ['./device-create.component.css'],
 })
 export class DeviceCreateComponent implements OnInit {
     private mode = 'create';
@@ -46,7 +46,7 @@ export class DeviceCreateComponent implements OnInit {
 
     onSaveDevice(form: NgForm) {
         if (form.invalid) {
-            return
+            return;
         }
 
         this.isLoading = true;
@@ -56,14 +56,14 @@ export class DeviceCreateComponent implements OnInit {
             name: form.value.name,
             macAddress: form.value.macAddress,
             createdBy: 'Admin',
-            createdDate: Date.now().toLocaleString()
+            createdDate: Date.now().toLocaleString(),
         };
 
         if (this.mode === 'create') {
-            console.log('create');
+            // console.log('create');
             this.devicesService.addDevice(newDevice);
         } else {
-            console.log('update');
+            // console.log('update');
             this.devicesService.updateDevice(newDevice);
         }
 

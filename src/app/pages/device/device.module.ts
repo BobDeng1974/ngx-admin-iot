@@ -10,13 +10,12 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatProgressSpinnerModule,
-  MatPaginatorModule
+  MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
   imports: [
     ThemeModule,
-    
     DeviceRoutingModule,
     MatToolbarModule,
     MatInputModule,
@@ -25,12 +24,12 @@ import {
     MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   declarations: [
     ...routedComponents,
-    DeviceHeaderComponent
+    DeviceHeaderComponent,
   ],
-  providers: []
+  providers: [],
 })
 export class DeviceModule { }

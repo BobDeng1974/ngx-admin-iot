@@ -7,25 +7,24 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 import { Meetingroom } from './meetingroom.model';
-import { UserService } from '../../@core/data/users.service';
 
 import { ServerDataSource } from 'ng2-smart-table';
 
-const BACKEND_URL = environment.apiUrl + "/meetingroom";
+const BACKEND_URL = environment.apiUrl + '/meetingroom';
 
-@Injectable({ providedIn: "root"})
+@Injectable({ providedIn: 'root'})
 export class MeetingroomsService {
     private meetingrooms: Meetingroom[] = [];
-    private aaa: ServerDataSource;
+    private serverDataSource: ServerDataSource;
 
     // TODO: (1)宣告Subject, 會傳入Meetingroom陣列
     private meetingroomsUpdated = new Subject<{ meetingrooms: Meetingroom[], meetingroomCount: number }>();
 
-    constructor(protected http: HttpClient, private router: Router, private userService: UserService) {
+    constructor(protected http: HttpClient, private router: Router) {
     }
 
     getMeetingrooms(meetingroomsPerPage: number, currentPage: number) {
-        console.log('get meetingrooms paging', meetingroomsPerPage, currentPage);
+        // console.log('get meetingrooms paging', meetingroomsPerPage, currentPage);
 
         const queryParams = `?pagesize=${meetingroomsPerPage}&page=${currentPage}`;
 
@@ -39,36 +38,31 @@ export class MeetingroomsService {
                             imagePath: meetingroom.imagePath,
                             createdBy: meetingroom.createdBy,
                             createdDate: meetingroom.createdDate,
-                            id: meetingroom._id
+                            id: meetingroom._id,
                         };
                     }),
-                    maxMeetingrooms: meetingroomDate.meetingrooms
+                    maxMeetingrooms: meetingroomDate.meetingrooms,
                 };
             }))
             .subscribe((transformedMeetingroomData) => {
-                console.log('transformed Meetingroom data', transformedMeetingroomData);
+                // console.log('transformed Meetingroom data', transformedMeetingroomData);
                 this.meetingrooms = transformedMeetingroomData.meetingrooms;
                 this.meetingroomsUpdated.next({
                     meetingrooms: [...this.meetingrooms],
-                    meetingroomCount: transformedMeetingroomData.maxMeetingrooms
+                    meetingroomCount: transformedMeetingroomData.maxMeetingrooms,
                 });
             });
     }
 
-    getMeetingrooms2(): ServerDataSource{
-        
-        this.aaa = new ServerDataSource(this.http, {
+    getMeetingrooms2(): ServerDataSource {
+        this.serverDataSource = new ServerDataSource(this.http, {
             endPoint: BACKEND_URL + '?_start=1',
             dataKey: 'meetingrooms',
             totalKey: 'maxMeetingrooms',
-            pagerLimitKey:"_limit",
-            pagerPageKey:"_page",
+            pagerLimitKey: '_limit',
+            pagerPageKey: '_page',
         });
-        //this.aaa.setPaging(1,1, false);
-
-        //this.aaa = new ServerDataSource(this.http, { endPoint: 'https://jsonplaceholder.typicode.com/photos?_start=1&_limit=10' });
-
-        return this.aaa;
+        return this.serverDataSource;
     }
 
     getMeetingroomUpdateListener() {
@@ -83,16 +77,13 @@ export class MeetingroomsService {
         const meetingroomData = new FormData();
         meetingroomData.append('name', name);
         meetingroomData.append('image', image, image.name);
-        // meetingroomData.append('createdBy', this.userService.getCurrentUser().userId);
-        // meetingroomData.append('createdDate', new Date().toLocaleString());
-        
         this.http
-            .post<{ message: string, meetingroom: Meetingroom}>(
+        .post<{ message: string, meetingroom: Meetingroom}>(
                 BACKEND_URL,
-                meetingroomData
+                meetingroomData,
             )
             .subscribe(res => {
-                //console.log('created result ----', res);
+                // console.log('created result ----', res);
                 // const meetingroom: Meetingroom = {
                 //     id: res.meetingroom.id,
                 //     name: name,
@@ -102,7 +93,7 @@ export class MeetingroomsService {
                 // };
                 // this.meetingrooms.push(meetingroom);
 
-                this.router.navigate(["/pages/meetingroom/meetingroom-list"]);
+                this.router.navigate(['/pages/meetingroom/meetingroom-list']);
             });
     }
 }

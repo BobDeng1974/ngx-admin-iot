@@ -15,7 +15,7 @@ export class UserService {
     lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
     alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
     kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
-    xavier: { name: 'Xavier Lin', picture: 'assets/images/profile.jpg'}
+    xavier: { name: 'Xavier Lin', picture: 'assets/images/profile.jpg'},
   };
 
   private currentUser: any;
@@ -35,13 +35,13 @@ export class UserService {
   }
 
   getUser(): Observable<any> {
-    console.log('gggggggggggget');
+    // console.log('gggggggggggget');
     counter = (counter + 1) % this.userArray.length;
     return observableOf(this.userArray[counter]);
   }
 
   setCurrentUser(user: any): void {
-    console.log('++++++++++++++', user);
+    // console.log('++++++++++++++', user);
     this.currentUser = user;
   }
 

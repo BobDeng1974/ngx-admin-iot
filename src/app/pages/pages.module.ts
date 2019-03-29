@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from "@angular/common";
 
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -12,7 +11,7 @@ import { MeetingroomModule } from './meetingroom/meetingroom.module';
 
 
 const PAGES_COMPONENTS = [
-  PagesComponent
+  PagesComponent,
 ];
 
 @NgModule({
@@ -21,7 +20,6 @@ const PAGES_COMPONENTS = [
     ThemeModule,
     DashboardModule,
     MiscellaneousModule,
-    
     DeviceModule,
     MeetingroomModule,
   ],

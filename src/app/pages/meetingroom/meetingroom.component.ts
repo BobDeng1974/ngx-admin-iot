@@ -1,9 +1,7 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-meetingroom',
-    templateUrl: './meetingroom.component.html'
+    selector: 'ngx-meetingroom',
+    templateUrl: './meetingroom.component.html',
 })
-export class MeetingroomComponent {
-
-}
+export class MeetingroomComponent {}

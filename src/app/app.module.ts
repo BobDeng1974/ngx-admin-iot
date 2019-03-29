@@ -36,7 +36,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    AuthGuard
+    AuthGuard,
   ],
 })
 export class AppModule {

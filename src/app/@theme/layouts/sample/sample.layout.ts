@@ -25,8 +25,7 @@ import { StateService } from '../../../@core/data/state.service';
                    tag="menu-sidebar"
                    responsive
                    [end]="sidebar.id === 'end'">
-        
-        <ng-content select="nb-menu"></ng-content>
+                   <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
       <nb-layout-column class="main-content">
@@ -101,7 +100,7 @@ export class SampleLayoutComponent implements OnDestroy {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
-        console.log(theme.name);
+        // console.log(theme.name);
         this.currentTheme = theme.name;
     });
   }

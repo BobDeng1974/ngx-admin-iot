@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -9,23 +9,23 @@ import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import { environment } from './../../environments/environment';
 
-const socialLinks = [
-  {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'socicon-github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'socicon-facebook',
-  },
-  {
-    url: 'https://twitter.com/akveo_inc',
-    target: '_blank',
-    icon: 'socicon-twitter',
-  },
-];
+// const socialLinks = [
+//   {
+//     url: 'https://github.com/akveo/nebular',
+//     target: '_blank',
+//     icon: 'socicon-github',
+//   },
+//   {
+//     url: 'https://www.facebook.com/akveo/',
+//     target: '_blank',
+//     icon: 'socicon-facebook',
+//   },
+//   {
+//     url: 'https://twitter.com/akveo_inc',
+//     target: '_blank',
+//     icon: 'socicon-twitter',
+//   },
+// ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
@@ -47,26 +47,26 @@ export const NB_CORE_PROVIDERS = [
         name: 'email',
         token: {
           class: NbAuthJWTToken,
-          key: 'data'
+          key: 'data',
         },
         baseEndpoint: environment.apiUrl,
         login: {
           endpoint: '/auth/login',
-          method: 'post'
+          method: 'post',
         },
         register: {
           endpoint: '/auth/signup',
-          method: 'post'
+          method: 'post',
         },
         logout: {
           endpoint: '/auth/logout',
           method: 'post',
           redirect: {
             success: '/auth/login',
-            failure: null
-          }
-        }
-      })
+            failure: null,
+          },
+        },
+      }),
     ],
     forms: {
       // login: {

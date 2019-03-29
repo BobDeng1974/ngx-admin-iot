@@ -13,9 +13,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Meetingrooms',
-        link: '/pages/meetingroom/meetingroom-list'
-      }
-    ]
+        link: '/pages/meetingroom/meetingroom-list',
+      },
+    ],
   },
   {
     title: 'Device Profiles',
@@ -23,9 +23,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Devices',
-        link: '/pages/device/device-list'
-      }
-    ]
+        link: '/pages/device/device-list',
+      },
+    ],
   },
   {
     title: 'FEATURES',
