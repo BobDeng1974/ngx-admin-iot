@@ -59,10 +59,10 @@ export class MeetingroomsService {
             endPoint: BACKEND_URL + '?_start=1',
             dataKey: 'meetingrooms',
             totalKey: 'maxMeetingrooms',
-            pagerLimitKey: "_limit",
-            pagerPageKey: "_page",
-            sortDirKey: "_order",
-            sortFieldKey: "_sort",
+            pagerLimitKey: '_limit',
+            pagerPageKey: '_page',
+            sortDirKey: '_order',
+            sortFieldKey: '_sort',
         });
 
         // this.serverDataSource.setSort([{ field: 'createdDate', direction: 'asc' }], false);

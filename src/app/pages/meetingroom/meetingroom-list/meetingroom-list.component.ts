@@ -30,7 +30,7 @@ export class MeetingroomListComponent implements OnInit, OnDestroy {
         noDataMessage: 'No Meetingroom Added Yet',
         pager: {
             display: true,
-            perPage: 1,
+            perPage: 3,
         },
         delete: {
             deleteButtonContent: '<i class="nb-trash"></i>',
