@@ -13,7 +13,12 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(error, "backend/images");
+
+    // TODO: 佈署時
+    cb(error, "images");
+
+    // TODO: 測試時
+    // cb(error, "backend/images");
   },
   filename: (req, file, cb) => {
 

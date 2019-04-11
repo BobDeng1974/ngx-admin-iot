@@ -65,7 +65,6 @@
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.1",
     "mongoose-unique-validator": "^2.0.2",
-    "multer": "^1.4.1",
     "nebular-icons": "1.1.0",
     "ng2-completer": "^2.0.8",
     "ng2-smart-table": "^1.4.0",

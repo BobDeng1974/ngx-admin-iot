@@ -10,22 +10,24 @@ const meetingroomRoutes = require('./routes/meetingroom');
 
 const app = express();
 
-// TODO: 連線mongodb
-mongoose.connect('mongodb://localhost:10000/ngx-admin-iot')
-  .then(() => {
-    console.log('Connected to database!'); 
-  })
-  .catch((err) => {
-    console.log('Connection failed', err);
-  });
-// console.log('--------mongodb+srv://SMGARC1:'+ process.env.MONGO_ATLAS_PW +'@cluster0-3aj6h.azure.mongodb.net/admin-iot?retryWrites=true');
-// mongoose.connect('mongodb+srv://SMGARC1:'+ process.env.MONGO_ATLAS_PW +'@cluster0-3aj6h.azure.mongodb.net/admin-iot?retryWrites=true')
+// TODO: (內部測試使用)連線mongodb
+// mongoose.connect('mongodb://localhost:10000/ngx-admin-iot')
 //   .then(() => {
-//     console.log('Connected to database!');
+//     console.log('Connected to database!'); 
 //   })
 //   .catch((err) => {
 //     console.log('Connection failed', err);
 //   });
+
+// TODO: (佈署AWS使用)連線mongodb
+console.log('--------mongodb+srv://SMGARC1:'+ process.env.MONGO_ATLAS_PW +'@cluster0-3aj6h.azure.mongodb.net/admin-iot?retryWrites=true');
+mongoose.connect('mongodb+srv://SMGARC1:'+ process.env.MONGO_ATLAS_PW +'@cluster0-3aj6h.azure.mongodb.net/admin-iot?retryWrites=true')
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch((err) => {
+    console.log('Connection failed', err);
+  });
 
 
 //mongodb+srv://SMGARC1:<PASSWORD>@cluster0-3aj6h.azure.mongodb.net/test?retryWrites=true
@@ -35,7 +37,12 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
   extended: false
 }));
-app.use("/images", express.static(path.join("backend/images")));
+
+// TODO: 佈署時
+app.use("/images", express.static(path.join("images")));
+
+// TODO: 測試時
+// app.use("/images", express.static(path.join("backend/images")));
 
 // TODO: 設定CORS
 app.use((req, res, next) => {
