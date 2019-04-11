@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 // import { TrafficBarService } from './traffic-bar.service';
 // import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.service';
 // import { TemperatureHumidityService } from './temperature-humidity.service';
-// import { SolarService } from './solar.service';
+import { SolarService } from './solar.service';
 // import { TrafficChartService } from './traffic-chart.service';
 // import { StatsBarService } from './stats-bar.service';
 // import { CountryOrderService } from './country-order.service';
@@ -36,7 +36,7 @@ const SERVICES = [
   // TrafficBarService,
   // ProfitBarAnimationChartService,
   // TemperatureHumidityService,
-  // SolarService,
+  SolarService,
   // TrafficChartService,
   // StatsBarService,
   // CountryOrderService,

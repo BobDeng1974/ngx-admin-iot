@@ -10,8 +10,10 @@ import { AnalyticsService } from './utils/analytics.service';
 import { environment } from './../../environments/environment';
 
 import { SecurityCamerasData } from './data/security-cameras';
+import { SolarData } from './data/solar';
 
 import { SecurityCamerasService } from './mock/security-cameras.service';
+import { SolarService } from './mock/solar.service';
 
 // const socialLinks = [
 //   {
@@ -44,7 +46,7 @@ const DATA_SERVICES = [
   // { provide: TrafficBarData, useClass: TrafficBarService },
   // { provide: ProfitBarAnimationChartData, useClass: ProfitBarAnimationChartService },
   // { provide: TemperatureHumidityData, useClass: TemperatureHumidityService },
-  // { provide: SolarData, useClass: SolarService },
+   { provide: SolarData, useClass: SolarService },
   // { provide: TrafficChartData, useClass: TrafficChartService },
   // { provide: StatsBarData, useClass: StatsBarService },
   // { provide: CountryOrderData, useClass: CountryOrderService },
