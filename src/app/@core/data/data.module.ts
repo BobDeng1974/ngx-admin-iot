@@ -6,7 +6,7 @@ import { StateService } from './state.service';
 
 const SERVICES = [
   UserService,
-  StateService,
+  StateService
 ];
 
 @NgModule({

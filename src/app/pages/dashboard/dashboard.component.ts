@@ -7,6 +7,7 @@ interface CardSettings {
   title: string;
   iconClass: string;
   type: string;
+  topic: string;
 }
 
 @Component({
@@ -22,21 +23,25 @@ export class DashboardComponent implements OnDestroy {
     title: 'Light',
     iconClass: 'nb-lightbulb',
     type: 'primary',
+    topic: 'led'
   };
   rollerShadesCard: CardSettings = {
     title: 'Roller Shades',
     iconClass: 'nb-roller-shades',
     type: 'success',
+    topic: 'roller'
   };
   wirelessAudioCard: CardSettings = {
     title: 'Wireless Audio',
     iconClass: 'nb-audio',
     type: 'info',
+    topic: 'wireless'
   };
   coffeeMakerCard: CardSettings = {
     title: 'Coffee Maker',
     iconClass: 'nb-coffee-maker',
     type: 'warning',
+    topic: 'coffee'
   };
 
   statusCards: string;
@@ -84,7 +89,7 @@ export class DashboardComponent implements OnDestroy {
         this.statusCards = this.statusCardsByThemes[theme.name];
       });
 
-      this.solarService.getSolarData()
+    this.solarService.getSolarData()
       .pipe(takeWhile(() => this.alive))
       .subscribe((data) => {
         this.solarValue = data;

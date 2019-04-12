@@ -14,6 +14,8 @@ import { SolarData } from './data/solar';
 
 import { SecurityCamerasService } from './mock/security-cameras.service';
 import { SolarService } from './mock/solar.service';
+import { ApiDataService } from './mock/apidata.service';
+import { ApiData } from './data/apidata';
 
 // const socialLinks = [
 //   {
@@ -53,6 +55,7 @@ const DATA_SERVICES = [
   // { provide: StatsProgressBarData, useClass: StatsProgressBarService },
   // { provide: VisitorsAnalyticsData, useClass: VisitorsAnalyticsService },
   { provide: SecurityCamerasData, useClass: SecurityCamerasService },
+  { provide: ApiData, useClass: ApiDataService },
 ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {

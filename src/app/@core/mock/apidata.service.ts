@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-import { Globals } from './app.global';
+import { Globals } from '../data/app.global';
 import { NbAuthService, NbAuthToken } from '@nebular/auth';
+import { ApiData } from '../data/apidata';
 
 @Injectable()
-export class DataService {
+export class ApiDataService extends ApiData {
 	token;
 	dataLimit = 30;
 
-	constructor(private http: Http,
-		private authService: NbAuthService) {
+	constructor(private http: HttpClient,
+				private authService: NbAuthService) {
+				super();
 	}
 
-	private createAuthorizationHeader(headers: Headers) {
+	private createAuthorizationHeader(headers: HttpHeaders) {
 		this.authService.getToken().subscribe((token: NbAuthToken) => {
 			headers.append('Authorization', 'Bearer ' + token.getValue());
 			headers.append('Accept-Language', 'en_US');
@@ -22,8 +25,9 @@ export class DataService {
 	}
 
 	// TODO: 建立資料
-	create(data): Observable<Response> {
-		let headers = new Headers();
+	create(data): Observable<any> {
+		console.log('api server create callllllll', data);
+		let headers = new HttpHeaders();
 		this.createAuthorizationHeader(headers);
 		return this.http.post(Globals.BASE_API_URL + 'api/v1/data', data, {
 			headers: headers
@@ -31,8 +35,8 @@ export class DataService {
 	}
 
 	// TODO: 取得資料
-	get(id): Observable<Response> {
-		let headers = new Headers();
+	get(id): Observable<any> {
+		let headers = new HttpHeaders();
 		this.createAuthorizationHeader(headers);
 		console.log('url', Globals.BASE_API_URL + 'api/v1/data/' + id + '/' + this.dataLimit);
 		return this.http.get(Globals.BASE_API_URL + 'api/v1/data/' + id + '/' + this.dataLimit, {
