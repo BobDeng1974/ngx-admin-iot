@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Globals } from '../data/app.global';
@@ -12,8 +11,8 @@ export class ApiDataService extends ApiData {
 	dataLimit = 30;
 
 	constructor(private http: HttpClient,
-				private authService: NbAuthService) {
-				super();
+		private authService: NbAuthService) {
+		super();
 	}
 
 	private createAuthorizationHeader(headers: HttpHeaders) {
@@ -26,22 +25,21 @@ export class ApiDataService extends ApiData {
 
 	// TODO: 建立資料
 	create(data): Observable<any> {
-		console.log('api server create callllllll', data);
-		let headers = new HttpHeaders();
+		// console.log('api server create callllllll', data);
+		const headers = new HttpHeaders();
 		this.createAuthorizationHeader(headers);
 		return this.http.post(Globals.BASE_API_URL + 'api/v1/data', data, {
-			headers: headers
+			headers: headers,
 		});
 	}
 
 	// TODO: 取得資料
 	get(id): Observable<any> {
-		let headers = new HttpHeaders();
+		const headers = new HttpHeaders();
 		this.createAuthorizationHeader(headers);
-		console.log('url', Globals.BASE_API_URL + 'api/v1/data/' + id + '/' + this.dataLimit);
+		// console.log('url', Globals.BASE_API_URL + 'api/v1/data/' + id + '/' + this.dataLimit);
 		return this.http.get(Globals.BASE_API_URL + 'api/v1/data/' + id + '/' + this.dataLimit, {
-			headers: headers
+			headers: headers,
 		});
 	}
-
 }

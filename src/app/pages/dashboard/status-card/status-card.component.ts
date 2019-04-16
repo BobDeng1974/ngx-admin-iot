@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ApiData } from '../../../@core/data/apidata';
 
-
-
 @Component({
   selector: 'ngx-status-card',
   styleUrls: ['./status-card.component.scss'],
@@ -32,20 +30,19 @@ export class StatusCardComponent {
 
   toggleChange(state) {
     this.on = !this.on;
-    console.log(state.on);
-    let data = {
+    // console.log(state.on);
+    const data = {
       macAddress: 'aaa',
       data: {
-        l: state.on
+        l: state.on,
       },
-      topic: 'led'
+      topic: 'led',
     };
 
     this.apiDataService.create(data)
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
       });
-    
     // this.apidataService.create(data).subscribe((resp) => {
     //       if (resp.json()._id) {
     //             // this.notificationsService.success('Device Notified!');

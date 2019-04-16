@@ -17,6 +17,9 @@ import { SolarService } from './mock/solar.service';
 import { ApiDataService } from './mock/apidata.service';
 import { ApiData } from './data/apidata';
 
+import { SocketService } from './mock/socket.service';
+import { SocketData } from './data/socketdata';
+
 // const socialLinks = [
 //   {
 //     url: 'https://github.com/akveo/nebular',
@@ -56,6 +59,7 @@ const DATA_SERVICES = [
   // { provide: VisitorsAnalyticsData, useClass: VisitorsAnalyticsService },
   { provide: SecurityCamerasData, useClass: SecurityCamerasService },
   { provide: ApiData, useClass: ApiDataService },
+  { provide: SocketData, useClass: SocketService },
 ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -126,7 +130,6 @@ export const NB_CORE_PROVIDERS = [
 
   {
     provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
-    
   },
   AnalyticsService,
 ];

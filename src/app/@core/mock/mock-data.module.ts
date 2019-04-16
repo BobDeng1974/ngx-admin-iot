@@ -22,6 +22,7 @@ import { SolarService } from './solar.service';
 // import { VisitorsAnalyticsService } from './visitors-analytics.service';
 import { SecurityCamerasService } from './security-cameras.service';
 import { ApiDataService } from './apidata.service';
+import { SocketService } from './socket.service';
 
 const SERVICES = [
   // UserService,
@@ -44,7 +45,8 @@ const SERVICES = [
   // StatsProgressBarService,
   // VisitorsAnalyticsService,
   SecurityCamerasService,
-  ApiDataService
+  ApiDataService,
+  SocketService,
 ];
 
 @NgModule({
