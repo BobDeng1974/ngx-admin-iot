@@ -19,9 +19,11 @@ interface CardSettings {
 })
 export class DashboardComponent implements AfterViewInit, OnDestroy {
   private alive = true;
-  private aaa;
 
-  solarValue: number;
+  co2Value: number;
+  humidityValue: number;
+  temperatureValue: number;
+
   lightCard: CardSettings = {
     title: 'Light',
     iconClass: 'nb-lightbulb',
@@ -84,32 +86,22 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     };
 
   constructor(private themeService: NbThemeService,
-    private solarService: SolarData,
     private socketService: SocketData) {
-
-
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
         this.statusCards = this.statusCardsByThemes[theme.name];
-      });
-
-    this.solarService.getSolarData()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((data) => {
-        //this.aaa = Math.floor(Math.random() * 100) + 1;
-        //this.solarValue = this.aaa;
       });
   }
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit', this.alive);
     // TODO: Connect to api server by socket
-    this.socketService.getData('pm25')
+    this.socketService.getData('co2')
       .pipe(takeWhile(() => this.alive))
       .subscribe((result) => {
         console.log('socket push data', result.data.h);
-        this.solarValue = result.data.h as number;
+        this.co2Value = result.data.h as number;
       });
   }
 

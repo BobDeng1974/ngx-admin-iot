@@ -20,7 +20,7 @@ export class SecurityCamerasService extends SecurityCamerasData {
     },
     {
       title: 'Camera #4',
-      source: 'assets/images/camera4.jpg',
+      source: 'http://10.192.211.175:5000/video_feed',
     },
   ];
 

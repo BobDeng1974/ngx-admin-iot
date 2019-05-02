@@ -5,7 +5,9 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 import { StatusCardComponent } from './status-card/status-card.component';
 import { SecurityCamerasComponent } from './security-cameras/security-cameras.component';
-import { SolarComponent } from './solar/solar.component';
+import { Co2Component } from './co2/co2.component';
+import { HumidityComponent } from './humidity/humidity.component';
+import { TemperatureComponent } from './temperature/temperature.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { SolarComponent } from './solar/solar.component';
     DashboardComponent,
     StatusCardComponent,
     SecurityCamerasComponent,
-    SolarComponent,
+    Co2Component,
+    HumidityComponent,
+    TemperatureComponent
   ],
 })
 export class DashboardModule { }
