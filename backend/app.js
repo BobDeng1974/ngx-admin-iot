@@ -36,7 +36,7 @@ app.use(bodyparser.urlencoded({
 }));
 
 // TODO: 佈署時
-// app.use("/images", express.static(path.join("images")));
+//app.use("/images", express.static(path.join("images")));
 
 // TODO: 測試時
 app.use("/images", express.static(path.join("backend/images")));

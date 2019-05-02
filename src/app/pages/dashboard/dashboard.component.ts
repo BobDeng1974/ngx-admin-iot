@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 import { SolarData } from '../../@core/data/solar';
@@ -17,8 +17,9 @@ interface CardSettings {
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnDestroy {
+export class DashboardComponent implements AfterViewInit, OnDestroy {
   private alive = true;
+  private aaa;
 
   solarValue: number;
   lightCard: CardSettings = {
@@ -86,6 +87,7 @@ export class DashboardComponent implements OnDestroy {
     private solarService: SolarData,
     private socketService: SocketData) {
 
+
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
@@ -95,15 +97,20 @@ export class DashboardComponent implements OnDestroy {
     this.solarService.getSolarData()
       .pipe(takeWhile(() => this.alive))
       .subscribe((data) => {
-        this.solarValue = data;
+        //this.aaa = Math.floor(Math.random() * 100) + 1;
+        //this.solarValue = this.aaa;
       });
+  }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit', this.alive);
     // TODO: Connect to api server by socket
     this.socketService.getData('pm25')
+      .pipe(takeWhile(() => this.alive))
       .subscribe((result) => {
-        console.log('socket push data', result);
+        console.log('socket push data', result.data.h);
+        this.solarValue = result.data.h as number;
       });
-
   }
 
   ngOnDestroy() {
