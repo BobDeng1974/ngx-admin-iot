@@ -21,6 +21,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   private alive = true;
 
   co2Value: number;
+  pm25Value: number;
   humidityValue: number;
   temperatureValue: number;
 
@@ -97,12 +98,24 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     console.log('ngAfterViewInit', this.alive);
     // TODO: Connect to api server by socket
-    this.socketService.getData('co2')
+     this.socketService.getData('02:42:fd:57:e1:2e')
       .pipe(takeWhile(() => this.alive))
       .subscribe((result) => {
         console.log('socket push data', result.data.h);
         this.co2Value = result.data.h as number;
+        // this.pm25Value = result.data.t as number;
+        this.humidityValue = result.data.h as number;
+        this.temperatureValue = result.data.t as number;
       });
+
+
+
+    // this.socketService.getData('humidity')
+    //   .pipe(takeWhile(() => this.alive))
+    //   .subscribe((result) => {
+    //     console.log('humidity data', result.data.h);
+    //     // this.co2Value = result.data.h as number;
+    //   });
   }
 
   ngOnDestroy() {

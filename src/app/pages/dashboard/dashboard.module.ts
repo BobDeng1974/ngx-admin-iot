@@ -8,6 +8,7 @@ import { SecurityCamerasComponent } from './security-cameras/security-cameras.co
 import { Co2Component } from './co2/co2.component';
 import { HumidityComponent } from './humidity/humidity.component';
 import { TemperatureComponent } from './temperature/temperature.component';
+import { Pm25Component } from './pm25/pm25.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { TemperatureComponent } from './temperature/temperature.component';
     SecurityCamerasComponent,
     Co2Component,
     HumidityComponent,
-    TemperatureComponent
+    TemperatureComponent,
+    Pm25Component
   ],
 })
 export class DashboardModule { }

@@ -9,7 +9,7 @@ declare const echarts: any;
   styleUrls: ['./temperature.component.scss'],
   template: `
     <nb-card size="xsmall" class="solar-card">
-      <nb-card-header>Temperature</nb-card-header>
+      <nb-card-header>TEMPERATURE</nb-card-header>
       <nb-card-body>
         <div echarts [options]="option" class="echart">
         </div>
@@ -41,7 +41,7 @@ export class TemperatureComponent implements AfterViewInit, OnDestroy {
       this.option = Object.assign({}, {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d} ppm)',
+          formatter: '{a} <br/>{b} : {c} ({d} °C)',
         },
         series: [
           {
@@ -58,7 +58,7 @@ export class TemperatureComponent implements AfterViewInit, OnDestroy {
                 label: {
                   normal: {
                     position: 'center',
-                    formatter: '{d} ppm',
+                    formatter: '{d} °C',
                     textStyle: {
                       fontSize: '22',
                       fontFamily: config.variables.fontSecondary,
@@ -185,7 +185,7 @@ export class TemperatureComponent implements AfterViewInit, OnDestroy {
       this.option = Object.assign({}, {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d} ppm)',
+          formatter: '{a} <br/>{b} : {c} ({d} °C)',
         },
         series: [
           {
@@ -202,7 +202,7 @@ export class TemperatureComponent implements AfterViewInit, OnDestroy {
                 label: {
                   normal: {
                     position: 'center',
-                    formatter: '{d} ppm',
+                    formatter: '{d} °C',
                     textStyle: {
                       fontSize: '22',
                       fontFamily: config.variables.fontSecondary,

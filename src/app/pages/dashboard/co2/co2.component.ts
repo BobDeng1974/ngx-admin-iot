@@ -9,7 +9,7 @@ declare const echarts: any;
   styleUrls: ['./co2.component.scss'],
   template: `
     <nb-card size="xsmall" class="solar-card">
-      <nb-card-header>CO-2</nb-card-header>
+      <nb-card-header>CO2</nb-card-header>
       <nb-card-body>
         <div echarts [options]="option" class="echart">
         </div>

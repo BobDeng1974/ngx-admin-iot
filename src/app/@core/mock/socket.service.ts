@@ -15,7 +15,7 @@ export class SocketService extends SocketData{
 
 	init() {
 		this.authService.getToken().subscribe((token: NbAuthToken) => {
-			console.log('authhhhhhhhhhhhhhh', token.getValue());
+			// console.log('authhhhhhhhhhhhhhh', token.getValue());
 			this.socket = io(Globals.BASE_API_URL, {
 				'query': 'token=' + token.getValue(),
 			});

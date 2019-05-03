@@ -5,11 +5,11 @@ import { NbThemeService } from '@nebular/theme';
 declare const echarts: any;
 
 @Component({
-  selector: 'ngx-humidity',
-  styleUrls: ['./humidity.component.scss'],
+  selector: 'ngx-pm25',
+  styleUrls: ['./pm25.component.scss'],
   template: `
     <nb-card size="xsmall" class="solar-card">
-      <nb-card-header>HUMIDITY</nb-card-header>
+      <nb-card-header>PM25</nb-card-header>
       <nb-card-body>
         <div echarts [options]="option" class="echart">
         </div>
@@ -21,12 +21,12 @@ declare const echarts: any;
     </nb-card>
   `,
 })
-export class HumidityComponent implements AfterViewInit, OnDestroy {
+export class Pm25Component implements AfterViewInit, OnDestroy {
 
   private value = 0;
 
-  @Input('humidityValue')
-  set humidityValue(value: number) {
+  @Input('pm25Value')
+  set pm25Value(value: number) {
     // console.log('valueeee change', value);
     this.value = value;
     if (this.option.series) {
@@ -41,7 +41,7 @@ export class HumidityComponent implements AfterViewInit, OnDestroy {
       this.option = Object.assign({}, {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d} %)',
+          formatter: '{a} <br/>{b} : {c} ({d} ppm)',
         },
         series: [
           {
@@ -58,7 +58,7 @@ export class HumidityComponent implements AfterViewInit, OnDestroy {
                 label: {
                   normal: {
                     position: 'center',
-                    formatter: '{d} %',
+                    formatter: '{d} ppm',
                     textStyle: {
                       fontSize: '22',
                       fontFamily: config.variables.fontSecondary,
@@ -185,7 +185,7 @@ export class HumidityComponent implements AfterViewInit, OnDestroy {
       this.option = Object.assign({}, {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d} %)',
+          formatter: '{a} <br/>{b} : {c} ({d} ppm)',
         },
         series: [
           {
@@ -202,7 +202,7 @@ export class HumidityComponent implements AfterViewInit, OnDestroy {
                 label: {
                   normal: {
                     position: 'center',
-                    formatter: '{d} %',
+                    formatter: '{d} ppm',
                     textStyle: {
                       fontSize: '22',
                       fontFamily: config.variables.fontSecondary,
