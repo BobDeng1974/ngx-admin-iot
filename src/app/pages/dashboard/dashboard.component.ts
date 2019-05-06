@@ -98,7 +98,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     console.log('ngAfterViewInit', this.alive);
     // TODO: Connect to api server by socket
-     this.socketService.getData('02:42:fd:57:e1:2e')
+     this.socketService.getData('02:42:76:b3:91:49')
       .pipe(takeWhile(() => this.alive))
       .subscribe((result) => {
         console.log('socket push data', result.data.h);

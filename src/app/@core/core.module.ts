@@ -19,6 +19,8 @@ import { ApiData } from './data/apidata';
 
 import { SocketService } from './mock/socket.service';
 import { SocketData } from './data/socketdata';
+import { WeatherData } from './data/weatherData';
+import { WeatherDataService } from './mock/weatherData.service';
 
 // const socialLinks = [
 //   {
@@ -60,6 +62,7 @@ const DATA_SERVICES = [
   { provide: SecurityCamerasData, useClass: SecurityCamerasService },
   { provide: ApiData, useClass: ApiDataService },
   { provide: SocketData, useClass: SocketService },
+  { provide: WeatherData, useClass: WeatherDataService },
 ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {

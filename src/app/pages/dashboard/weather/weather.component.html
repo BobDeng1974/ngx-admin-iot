@@ -1,0 +1,47 @@
+<nb-card size="medium">
+  <nb-card-body>
+    <div class="location">
+      <span>{{ completeForecast?.dailyForecasts?.forecastLocation?.city }}({{ this.forecastArray && this.forecastArray[0]?.weekday | slice:0:3}})</span>
+    </div>
+    <div class="date">
+      <span>{{ completeForecast?.feedCreation | date }}</span>
+    </div>
+    <div class="daily-forecast">
+      <div class="info">
+        <div class="temperature">
+          <span>{{ currentTemperature }}&deg;</span>
+        </div>
+        <div class="icon">
+          <!-- <i class="ion-ios-sunny-outline"></i> -->
+          <img style="height:85px; width:85px;" src="{{ this.forecastArray && this.forecastArray[0]?.iconLink }}" alt="">
+        </div>
+      </div>
+      <div class="details">
+        <div class="parameter">
+          <span class="parameter-name">max</span>
+          <span class="parameter-value">{{ this.forecastArray && this.forecastArray[0]?.highTemperature }}&deg;</span>
+        </div>
+        <div class="parameter">
+          <span class="parameter-name">min</span>
+          <span class="parameter-value">{{ this.forecastArray && this.forecastArray[0]?.lowTemperature }}&deg;</span>
+        </div>
+        <div class="parameter">
+          <span class="parameter-name">wind</span>
+          <span class="parameter-value">{{ this.forecastArray && this.forecastArray[0]?.windSpeed }} km/h</span>
+        </div>
+        <div class="parameter">
+          <span class="parameter-name">hum</span>
+          <span class="parameter-value">{{ this.forecastArray && this.forecastArray[0]?.humidity }}%</span>
+        </div>
+      </div>
+    </div>
+    <div class="weekly-forecast">
+      <div class="day" *ngFor="let forecast of forecastArray | slice:1:5">
+        <span class="caption">{{ forecast.weekday | slice:0:3 }}</span>
+        <!-- <i class="ion-ios-cloudy-outline"></i> -->
+        <img style="margin-left: auto; margin-right: auto;" src="{{ forecast.iconLink }}" alt="{{ forecast.description }}">
+        <span class="temperature">{{ forecast.highTemperature }}&deg;</span>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

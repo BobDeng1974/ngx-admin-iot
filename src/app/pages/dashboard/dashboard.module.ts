@@ -9,6 +9,7 @@ import { Co2Component } from './co2/co2.component';
 import { HumidityComponent } from './humidity/humidity.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { Pm25Component } from './pm25/pm25.component';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { Pm25Component } from './pm25/pm25.component';
     Co2Component,
     HumidityComponent,
     TemperatureComponent,
-    Pm25Component
+    Pm25Component,
+    WeatherComponent
   ],
 })
 export class DashboardModule { }
