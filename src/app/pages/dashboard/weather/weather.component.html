@@ -1,7 +1,7 @@
 <nb-card size="medium">
   <nb-card-body>
     <div class="location">
-      <span>{{ completeForecast?.dailyForecasts?.forecastLocation?.city }}({{ this.forecastArray && this.forecastArray[0]?.weekday | slice:0:3}})</span>
+      <span>{{ completeForecast?.dailyForecasts?.forecastLocation?.city  | uppercase }}({{ this.forecastArray && this.forecastArray[0]?.weekday | slice:0:3 | uppercase}})</span>
     </div>
     <div class="date">
       <span>{{ completeForecast?.feedCreation | date }}</span>
